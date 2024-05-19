@@ -1,0 +1,86 @@
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 130px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form input,
+.form select,
+.form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form select {
+    width: 100%;
+}
+
+.form .form-group {
+    margin-bottom: 20px;
+}
+
+.form .submit-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form .submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.form .success-message {
+    margin-top: 10px;
+    color: green;
+    font-size: 16px;
+}
+
+.form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    width: 150px;
+    /* Adjust width as needed */
+    display: inline-block;
+}
+
+.form-container h1 {
+    text-align: center;
+}
+
+.green-row {
+    background-color: lightgreen;
+    /* Change the background color for resolved rows */
+}
+
+.yellow-row {
+    background-color: rgb(211, 211, 14);
+    /* Change the background color for pending rows */
+}
+
+.success-message {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}

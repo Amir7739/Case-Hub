@@ -33,7 +33,7 @@ const UserForm = () => {
                 ...formData,
                 dateCreated: currentDate
             };
-            const response = await axios.post('http://localhost:5000/submitdata', updatedFormData);
+            const response = await axios.post('http://13.235.164.94:5000/submitdata', updatedFormData);
 
             console.log(response.data);
             setSuccessMessage('Issue raised successfully!');

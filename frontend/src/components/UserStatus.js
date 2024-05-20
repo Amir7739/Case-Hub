@@ -17,7 +17,7 @@ const UserStatus = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/userstatus');
+            const response = await axios.get('http://13.235.164.94:5000/api/userstatus');
             setFormDataList(response.data.filter(formData => formData.empId === authEmpId));
         } catch (error) {
             console.error('Error fetching form data:', error);
@@ -48,7 +48,7 @@ const UserStatus = () => {
             // Assuming authentication is already done, directly update data
             setFormDataList(updatedData);
 
-            await axios.post('http://localhost:5000/api/update-user', editedData);
+            await axios.post('http://13.235.164.94:5000/api/update-user', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});

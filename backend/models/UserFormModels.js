@@ -11,7 +11,8 @@ const FormDataSchema = new mongoose.Schema({
         default: Date.now
     },
     resolveDate: {
-        type:Date
+        type: Date,
+        default: null // Default to null
     },
     description: String,
     priority: String,
@@ -22,6 +23,7 @@ const FormDataSchema = new mongoose.Schema({
     attachment: [String],
     closureDetails: String,
     feedback: String,
+    timeTaken: String
 });
 
 const FormDataModel = mongoose.model('FormData', FormDataSchema);

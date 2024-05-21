@@ -35,21 +35,18 @@ const Navbar = () => {
         <Link to="/" className="navbar__link">
           <button className="navbar__button">Case Issue Form</button>
         </Link>
+        <Link to="/signup" className="navbar__link">
+          <button className="navbar__button">Sign up</button>
+        </Link>
         <div className="navbar__loginContainer" ref={dropdownRef}>
           <button className="navbar__button" onClick={toggleLoginDropdown}>Login</button>
           {showLoginDropdown && (
             <div className="navbar__dropdown">
-              <Link to="/userstatus" className="navbar__link">
+              <Link to="/api/userstatus" className="navbar__link">
                 <button className="navbar__dropdownButton">User</button>
               </Link>
-              <Link to="/api/adminrecord" className="navbar__link">
-                <button className="navbar__dropdownButton">Admin</button>
-              </Link>
-              <Link to="/api/formData" className="navbar__link">
-                <button className="navbar__dropdownButton">IT</button>
-              </Link>
-              <Link to="/api/hrrecord" className="navbar__link">
-                <button className="navbar__dropdownButton">HR</button>
+              <Link to="/login" className="navbar__link">
+                <button className="navbar__dropdownButton">Other</button>
               </Link>
               
             </div>

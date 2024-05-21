@@ -1,0 +1,100 @@
+/* body {
+  background-image: url('https://thumbs.dreamstime.com/b/sign-up-concept-dark-background-concept-sign-up-152388761.jpg'); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+} */
+
+.form-container-signup {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 140px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .form-container-signup h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 95%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-group select {
+    appearance: none;
+    padding-right: 30px; /* to accommodate arrow icon */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="#777" d="M5.555 6.667L10 11.111l4.445-4.444L16.667 8l-6.667 6.667L3.333 8z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 14px;
+  }
+  
+  .form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .form-group button:hover {
+    background-color: #0056b3;
+  }
+
+  .message {
+    color: rgb(97, 218, 97);
+    font-size: large;
+    font-weight: bold;
+  }
+
+  .warnMessage {
+    color: rgb(216, 63, 63);
+    font-size: large;
+    font-weight: bold;
+  }
+
+  .signup-btn {
+    background-color: #1d4e83;
+    color: #f9f9f9;
+    border: none;
+    padding: 8px;
+    width: 100px;
+    border-radius: 4px;
+  }
+
+  .signup-btn:hover {
+    background-color: #1c6cc2;
+    color: #f9f9f9;
+    border: none;
+    padding: 8px;
+    width: 100px;
+  }
+  

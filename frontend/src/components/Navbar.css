@@ -71,4 +71,7 @@
     cursor: pointer;
   }
   
+  .navbar__dropdownButton:hover {
+    text-decoration: underline;
+  }
   /* Add any additional styling as needed */

@@ -6,6 +6,9 @@ import UserStatus from './components/UserStatus';
 import Navbar from './components/Navbar'; // Import the Navbar component
 import HrFetchRecords from './components/HrFetchRecords';
 import AdminFetchRecords from './components/AdminFetchRecords';
+import DepartmentLogin from './components/DepartmentLogin';
+import SignupPage from './components/SignupPage';
+import CeoFetchRecord from './components/CeoFetchRecord';
 
 function App() {
   return (
@@ -14,10 +17,13 @@ function App() {
         <Navbar /> {/* Add the Navbar component */}
         <Routes>
           <Route path="/" element={<UserForm />} />
+          <Route path="/login" element={<DepartmentLogin />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/api/formData" element={<FetchRecord />} />
-          <Route path="/userstatus" element={<UserStatus />} />
+          <Route path="/api/userstatus" element={<UserStatus />} />
           <Route path="/api/hrrecord" element={<HrFetchRecords/>}/>
           <Route path="/api/adminrecord" element={<AdminFetchRecords/>}/>
+          <Route path="/api/ceostatus" element={<CeoFetchRecord/>}/>
         </Routes>
       </div>
     </Router>

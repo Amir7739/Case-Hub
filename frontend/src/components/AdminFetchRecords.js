@@ -5,15 +5,16 @@ import axios from 'axios';
 import './FetchRecord.css';
 
 const AdminFetchRecords = () => {
+    
     const [formDataList, setFormDataList] = useState([]);
     const [editedDataIndex, setEditedDataIndex] = useState(null);
     const [editedData, setEditedData] = useState({});
-    const [fildata, setFilData] = useState([]);
+    
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://13.235.164.94:5000/api/adminrecord');
+                const response = await axios.get('http://localhost:5000/api/adminrecord');
                 setFormDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);
@@ -29,10 +30,15 @@ const AdminFetchRecords = () => {
     };
 
     const handleEditDataChange = (field, value) => {
-        setEditedData({
+        // Update resolveDate when any other field is edited
+        const updatedData = {
             ...editedData,
             [field]: value,
-        });
+        };
+        if (field !== 'resolveDate') {
+            updatedData.resolveDate = new Date().toISOString(); // Update resolveDate to current date and time
+        }
+        setEditedData(updatedData);
     };
 
     const handleSaveEditedData = async (index) => {
@@ -40,7 +46,7 @@ const AdminFetchRecords = () => {
             const updatedData = [...formDataList];
             updatedData[index] = editedData;
             setFormDataList(updatedData);
-            await axios.post('http://13.235.164.94:5000/api/update-admindata', editedData);
+            await axios.post('http://localhost:5000/api/update-admindata', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});
@@ -51,7 +57,7 @@ const AdminFetchRecords = () => {
 
     return (
         <div>
-            <h2>FORM DATA LIST</h2>
+            <h2>ADMIN FORM DATA LIST</h2>
             <table>
                 <thead>
                     <tr>
@@ -63,18 +69,18 @@ const AdminFetchRecords = () => {
                         <th>Resolve Date</th>
                         <th>PRIORITY</th>
                         <th>CATEGORY</th>
-                        <th>ASSIGNEDTO</th>
+                        <th>DEPARTMENT</th>
                         <th>DESCRIPTION</th>
                         <th>CASE STATUS</th>
                         <th>COMMENTS</th>
-                        {/* <th>FEEDBACK</th> */}
+                        <th>FEEDBACK</th>
                         <th>EDIT</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     {formDataList.map((formData, index) => (
-                        <tr key={formData._id} className={formData.status === 'RESOLVE' ? 'green-row' : formData.status === 'PENDING' ? 'yellow-row' : ''}>
+                       <tr key={formData._id} style={{ backgroundColor: formData.status === 'RESOLVE' ? 'lightgreen' : formData.status === 'PENDING' ? 'yellow' : '' }}>
                             <td>
                                 {/* {editedDataIndex === index ? (
                                     <input
@@ -92,16 +98,9 @@ const AdminFetchRecords = () => {
                             <td>{formData.email}</td>
                             <td>{new Date(formData.dateCreated).toLocaleString('en-IN')}</td>
                             <td>
-                                {editedDataIndex === index ? (
-                                    <input
-                                        type="datetime-local" // Use datetime-local input type to include both date and time
-                                        value={editedData.resolveDate} // Assuming resolveDate is in the format yyyy-mm-ddThh:mm (required by datetime-local input)
-                                        onChange={(e) => handleEditDataChange('resolveDate', e.target.value)}
-                                    />
-                                ) : formData.resolveDate ? (
-                                    // Display resolved date in Indian Standard Time
-                                    new Date(formData.resolveDate)
-                                        .toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short' })
+                                {formData.resolveDate ? (
+                                    // Display both date and time in Indian Standard Time
+                                    new Date(formData.resolveDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
                                 ) : (
                                     '-'
                                 )}
@@ -143,17 +142,7 @@ const AdminFetchRecords = () => {
                                 )}
                             </td>
 
-                            {/* <td>
-                                {editedDataIndex === index ? (
-                                    <input
-                                        type="text"
-                                        value={editedData.feedback}
-                                        onChange={(e) => handleEditDataChange('feedback', e.target.value)}
-                                    />
-                                ) : (
-                                    formData.feedback
-                                )}
-                            </td> */}
+                            <td>{formData.feedback}</td>
 
                             <td>
                                 {editedDataIndex === index ? (

@@ -1,5 +1,4 @@
 // FetchRecord.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './FetchRecord.css';
@@ -8,12 +7,13 @@ const FetchRecord = () => {
     const [formDataList, setFormDataList] = useState([]);
     const [editedDataIndex, setEditedDataIndex] = useState(null);
     const [editedData, setEditedData] = useState({});
-    const [fildata, setFilData] = useState([]);
+    const [resolveTimeMap, setResolveTimeMap] = useState({}); // Map to store resolve times
+    const [countdownMap, setCountdownMap] = useState({}); // Map to store countdown timers
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://13.235.164.94:5000/api/formData');
+                const response = await axios.get('http://localhost:5000/api/formData');
                 setFormDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);
@@ -29,10 +29,15 @@ const FetchRecord = () => {
     };
 
     const handleEditDataChange = (field, value) => {
-        setEditedData({
+        // Update resolveDate when any other field is edited
+        const updatedData = {
             ...editedData,
             [field]: value,
-        });
+        };
+        if (field !== 'resolveDate') {
+            updatedData.resolveDate = new Date().toISOString(); // Update resolveDate to current date and time
+        }
+        setEditedData(updatedData);
     };
 
     const handleSaveEditedData = async (index) => {
@@ -41,7 +46,29 @@ const FetchRecord = () => {
             updatedData[index] = editedData;
             setFormDataList(updatedData);
 
-            await axios.post('http://13.235.164.94:5000/api/update-data', editedData);
+            // Start countdown timer if the status is RESOLVE
+            if (editedData.status === 'RESOLVE') {
+                const resolveTime = new Date().getTime();
+                setResolveTimeMap((prev) => ({ ...prev, [editedData._id]: resolveTime }));
+
+                // Start countdown timer for 30 minutes
+                const countdown = setInterval(() => {
+                    const currentTime = new Date().getTime();
+                    const elapsedTime = currentTime - resolveTime;
+                    const remainingTime = 30 * 60 * 1000 - elapsedTime;
+
+                    // If time's up, clear timer and update status back to PENDING
+                    if (remainingTime <= 0) {
+                        clearInterval(countdown);
+                        handleEditDataChange('status', 'PENDING');
+                        handleSaveEditedData(index); // Save the change
+                    } else {
+                        setCountdownMap((prev) => ({ ...prev, [editedData._id]: remainingTime }));
+                    }
+                }, 1000); // Update every second
+            }
+
+            await axios.post('http://localhost:5000/api/update-data', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});
@@ -54,7 +81,7 @@ const FetchRecord = () => {
 
     return (
         <div>
-            <h2>FORM DATA LIST</h2>
+            <h2>IT FORM DATA LIST</h2>
             <table>
                 <thead>
                     <tr>
@@ -66,18 +93,18 @@ const FetchRecord = () => {
                         <th>RESOLVE DATE</th>
                         <th>PRIORITY</th>
                         <th>CATEGORY</th>
-                        <th>ASSIGNEDTO</th>
+                        <th>DEPARTMENT</th>
                         <th>DESCRIPTION</th>
-                        <th>CASE STATUS</th>
+                        <th>ISSUE STATUS</th>
                         <th>COMMENTS</th>
-                        {/* <th>FEEDBACK</th> */}
+                        <th>FEEDBACK</th>
                         <th>EDIT</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     {formDataList.map((formData, index) => (
-                        <tr key={formData._id} className={formData.status === 'RESOLVE' ? 'green-row' : formData.status === 'PENDING' ? 'yellow-row' : ''}>
+                        <tr key={formData._id} style={{ backgroundColor: formData.status === 'RESOLVE' ? 'lightgreen' : formData.status === 'PENDING' ? 'yellow' : '' }}>
                             <td>
                                 {/* {editedDataIndex === index ? (
                                     <input
@@ -95,24 +122,13 @@ const FetchRecord = () => {
                             <td>{formData.email}</td>
                             <td>{new Date(formData.dateCreated).toLocaleString('en-IN')}</td>
                             <td>
-                                {editedDataIndex === index ? (
-                                    <input
-                                        type="datetime-local" // Use datetime-local input type to include both date and time
-                                        value={editedData.resolveDate} // Assuming resolveDate is in the format yyyy-mm-ddThh:mm (required by datetime-local input)
-                                        onChange={(e) => handleEditDataChange('resolveDate', e.target.value)}
-                                    />
-                                ) : formData.resolveDate ? (
-                                    // Display resolved date in Indian Standard Time
-                                    new Date(formData.resolveDate)
-                                        .toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short' })
+                                {formData.resolveDate ? (
+                                    // Display both date and time in Indian Standard Time
+                                    new Date(formData.resolveDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
                                 ) : (
                                     '-'
                                 )}
                             </td>
-
-
-
-
 
                             <td>{formData.priority}</td>
                             {/* <td>{formData.category}</td> */}
@@ -150,17 +166,7 @@ const FetchRecord = () => {
                                 )}
                             </td>
 
-                            {/* <td>
-                                {editedDataIndex === index ? (
-                                    <input
-                                        type="text"
-                                        value={editedData.feedback}
-                                        onChange={(e) => handleEditDataChange('feedback', e.target.value)}
-                                    />
-                                ) : (
-                                    formData.feedback
-                                )}
-                            </td> */}
+                            <td>{formData.feedback}</td>
 
                             <td>
                                 {editedDataIndex === index ? (

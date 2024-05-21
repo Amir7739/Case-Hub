@@ -17,7 +17,7 @@ const UserStatus = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://13.235.164.94:5000/api/userstatus');
+            const response = await axios.get('http://localhost:5000/api/userstatus');
             setFormDataList(response.data.filter(formData => formData.empId === authEmpId));
         } catch (error) {
             console.error('Error fetching form data:', error);
@@ -48,7 +48,7 @@ const UserStatus = () => {
             // Assuming authentication is already done, directly update data
             setFormDataList(updatedData);
 
-            await axios.post('http://13.235.164.94:5000/api/update-user', editedData);
+            await axios.post('http://localhost:5000/api/update-user', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});
@@ -72,6 +72,7 @@ const UserStatus = () => {
                                 <th>EMP NAME</th>
                                 <th>EMP Email</th>
                                 <th>DATE CREATED</th>
+                                <th>RESOLVE DATE</th>
                                 <th>PRIORITY</th>
                                 <th>CATEGORY</th>
                                 <th>ASSIGNEDTO</th>
@@ -84,12 +85,20 @@ const UserStatus = () => {
                         </thead>
                         <tbody>
                             {formDataList.map((formData, index) => (
-                                <tr key={formData._id} className={formData.status === 'RESOLVE' ? 'green-row' : formData.status === 'PENDING' ? 'yellow-row' : ''}>
+                                <tr key={formData._id} style={{ backgroundColor: formData.status === 'RESOLVE' ? 'lightgreen' : formData.status === 'PENDING' ? 'yellow' : '' }}>
                                     <td>{formData.ticketId}</td>
                                     <td>{formData.empId}</td>
                                     <td>{formData.empName}</td>
                                     <td>{formData.email}</td>
                                     <td>{new Date(formData.dateCreated).toLocaleString('en-IN')}</td>
+                                    <td>
+                                {formData.resolveDate ? (
+                                    // Display both date and time in Indian Standard Time
+                                    new Date(formData.resolveDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+                                ) : (
+                                    '-'
+                                )}
+                            </td>
                                     <td>{formData.priority}</td>
                                     <td>{formData.category}</td>
                                     <td>{formData.assignedTo}</td>

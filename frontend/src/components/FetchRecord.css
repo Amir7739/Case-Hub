@@ -3,7 +3,7 @@
 }
 
 table {
-    margin-top: 60px;
+    margin-top: 30px;
     width: 100%;
     border-collapse: collapse;
 }
@@ -72,3 +72,10 @@ table tr:nth-child(even) {
     font-size: large;
     
 }
+
+ h2 {
+    margin-top: 110px;
+    color: black;
+    text-align: center;
+}
+

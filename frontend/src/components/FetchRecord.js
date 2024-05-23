@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './FetchRecord.css';
+import StatusLegend from './StatusLegend';
 
 const FetchRecord = () => {
     const [formDataList, setFormDataList] = useState([]);
@@ -77,11 +78,27 @@ const FetchRecord = () => {
         }
     };
 
-
+const getStatusColor = (status) => {
+        switch (status) {
+            case 'RESOLVE':
+                return 'lightgreen';
+            case 'PENDING':
+                return 'yellow';
+            case 'IN PROGRESS':
+                return 'lightblue';
+            case 'ON HOLD':
+                return 'orange';
+            case 'ESCALATED':
+                return 'lightcoral';
+            default:
+                return '';
+        }
+    };
 
     return (
         <div>
             <h2>IT FORM DATA LIST</h2>
+             <StatusLegend/>
             <table>
                 <thead>
                     <tr>
@@ -104,7 +121,7 @@ const FetchRecord = () => {
                 </thead>
                 <tbody>
                     {formDataList.map((formData, index) => (
-                        <tr key={formData._id} style={{ backgroundColor: formData.status === 'RESOLVE' ? 'lightgreen' : formData.status === 'PENDING' ? 'yellow' : '' }}>
+                         <tr key={formData._id} style={{ backgroundColor: getStatusColor(formData.status) }}>
                             <td>
                                 {/* {editedDataIndex === index ? (
                                     <input
@@ -147,6 +164,8 @@ const FetchRecord = () => {
                                         <option value="">Choose status</option>
                                         <option value="RESOLVE">RESOLVE</option>
                                         <option value="PENDING">PENDING</option>
+                                        <option value="IN PROGRESS">IN PROGRESS</option>
+                                        <option value="ESCALATED">ESCALATED</option>
                                     </select>
                                 ) : (
                                     formData.status

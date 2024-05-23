@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LoginPage from './LoginPage';
 import './FetchRecord.css';
+import StatusLegend from './StatusLegend';
 
 const UserStatus = () => {
     const [formDataList, setFormDataList] = useState([]);
@@ -57,13 +58,31 @@ const UserStatus = () => {
         }
     };
 
+     const getStatusColor = (status) => {
+        switch (status) {
+            case 'RESOLVE':
+                return 'lightgreen';
+            case 'PENDING':
+                return 'yellow';
+            case 'IN PROGRESS':
+                return 'lightblue';
+            case 'ON HOLD':
+                return 'orange';
+            case 'REJECTED':
+                return 'lightcoral';
+            default:
+                return '';
+        }
+    };
+
     return (
         <div>
             {!authEmpId ? (
                 <LoginPage onLogin={handleLogin} />
             ) : (
                 <>
-                    <h2>DATA LIST FOR USER {authEmpId}</h2>
+                        <h2>DATA LIST FOR USER {authEmpId}</h2>
+                         <StatusLegend/>
                     <table>
                         <thead>
                             <tr>
@@ -85,7 +104,7 @@ const UserStatus = () => {
                         </thead>
                         <tbody>
                             {formDataList.map((formData, index) => (
-                                <tr key={formData._id} style={{ backgroundColor: formData.status === 'RESOLVE' ? 'lightgreen' : formData.status === 'PENDING' ? 'yellow' : '' }}>
+                                <tr key={formData._id} style={{ backgroundColor: getStatusColor(formData.status) }}>
                                     <td>{formData.ticketId}</td>
                                     <td>{formData.empId}</td>
                                     <td>{formData.empName}</td>

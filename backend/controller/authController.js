@@ -2,16 +2,16 @@ const Department = require('../models/DepartmentSignupModel');
 const bcrypt = require('bcryptjs');
 
 // Valid email addresses
-const validEmails = ['wecare@f2fintech.com', 'hr@f2fintech.com', 'it@f2fintech.com','other@f2fintech.com'];
+// const validEmails = ['wecare@f2fintech.com', 'hr@f2fintech.com', 'it@f2fintech.com','ops@f2fintech.com','other@f2fintech.com'];
 
 exports.signup = async (req, res) => {
   const { email, password, type } = req.body;
   
   try {
     // Check if email is valid
-    if (!validEmails.includes(email)) {
-      return res.status(400).json({ msg: 'Invalid email address. Signup with a valid email.' });
-    }
+    // if (!validEmails.includes(email)) {
+    //   return res.status(400).json({ msg: 'Invalid email address. Signup with a valid email.' });
+    // }
     
     // Check if user with email already exists
     let user = await Department.findOne({ email });

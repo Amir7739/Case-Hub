@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const HrDataModel = require('../models/HRModel');
-const hrRecordController = require('../controller/hrFetchController');
+const { MarketingDataModel } = require('../models/commonModel');
+const marketingRecordController = require('../controller/marketingController');
+
 
 // Get all form data
-router.get('/hrrecord', hrRecordController.getAllFormData);
+router.get('/markrecord', marketingRecordController.getAllMarketingData);
+
 // Route to update data
-router.post('/update-hrdata', async (req, res) => {
+router.post('/update-markdata', async (req, res) => {
     try {
         console.log('Received request to update data:', req.body); // Log the received request body
         const { _id, ...updatedData } = req.body;
-        const result = await HrDataModel.findByIdAndUpdate(_id, updatedData, { new: true });
+        const result = await MarketingDataModel.findByIdAndUpdate(_id, updatedData, { new: true });
         if (!result) {
             return res.status(404).json({ error: 'Data not found' });
         }

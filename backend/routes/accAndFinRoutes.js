@@ -1,16 +1,18 @@
-// backend/routes/fetchRecordRoutes.js
-
 const express = require('express');
-const FormDataModel = require('../models/UserFormModels');
-
 const router = express.Router();
+const { AccAndFinDataModel } = require('../models/commonModel');
+const accAndFinRecordController = require('../controller/accAndFinController');
+
+
+// Get all form data
+router.get('/accfinrecord', accAndFinRecordController.getAllCreditData);
 
 // Route to update data
-router.post('/update-data', async (req, res) => {
+router.post('/update-accfindata', async (req, res) => {
     try {
         console.log('Received request to update data:', req.body); // Log the received request body
         const { _id, ...updatedData } = req.body;
-        const result = await FormDataModel.findByIdAndUpdate(_id, updatedData, { new: true });
+        const result = await AccAndFinDataModel.findByIdAndUpdate(_id, updatedData, { new: true });
         if (!result) {
             return res.status(404).json({ error: 'Data not found' });
         }
@@ -22,3 +24,4 @@ router.post('/update-data', async (req, res) => {
 });
 
 module.exports = router;
+

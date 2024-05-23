@@ -1,16 +1,18 @@
-// backend/routes/fetchRecordRoutes.js
-
 const express = require('express');
-const HrDataModel = require('../models/HRModel');
-
 const router = express.Router();
+const { CreditDataModel } = require('../models/commonModel');
+const creditRecordController = require('../controller/creditController');
+
+
+// Get all form data
+router.get('/creditrecord', creditRecordController.getAllCreditData);
 
 // Route to update data
-router.post('/update-hrdata', async (req, res) => {
+router.post('/update-creditdata', async (req, res) => {
     try {
         console.log('Received request to update data:', req.body); // Log the received request body
         const { _id, ...updatedData } = req.body;
-        const result = await HrDataModel.findByIdAndUpdate(_id, updatedData, { new: true });
+        const result = await CreditDataModel.findByIdAndUpdate(_id, updatedData, { new: true });
         if (!result) {
             return res.status(404).json({ error: 'Data not found' });
         }
@@ -22,3 +24,4 @@ router.post('/update-hrdata', async (req, res) => {
 });
 
 module.exports = router;
+

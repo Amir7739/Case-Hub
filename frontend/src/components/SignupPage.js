@@ -24,7 +24,7 @@ const SignupPage = () => {
     e.preventDefault();
     setMessage(''); // Reset messages
     setWarnMsg('');
-    const validEmails = ['wecare@f2fintech.com', 'hr@f2fintech.com', 'it@f2fintech.com','other@f2fintech.com'];
+    const validEmails = ['wecare@f2fintech.com', 'hr@f2fintech.com', 'it@f2fintech.com','ops@f2fintech.com','marketing@f2fintech.com','credit@f2fintech.com','accountfinance@f2fintech.com','other@f2fintech.com','directors@f2fintech.com','growth@f2fintech.com'];
     const { email } = formData;
 
     if (!validEmails.includes(email)) {
@@ -32,12 +32,12 @@ const SignupPage = () => {
       setTimeout(clearMessages, 4000);
     } else {
       try {
-        const userExistsRes = await axios.get(`http://localhost:5000/api/department/email/${email}`);
+        const userExistsRes = await axios.get(`http://13.235.164.94:5000/api/department/email/${email}`);
         if (userExistsRes.data.exists) {
           setWarnMsg('Email already exists');
           setTimeout(clearMessages, 4000);
         } else {
-          await axios.post('http://localhost:5000/api/department/signup', formData);
+          await axios.post('http://13.235.164.94:5000/api/department/signup', formData);
           setMessage('Signup successful😍');
           setTimeout(() => {
             clearMessages();
@@ -68,7 +68,13 @@ const SignupPage = () => {
         <option value="">Select Department</option>
           <option value="HR">HR</option>
           <option value="IT">IT</option>
-          <option value="Admin">Admin</option>
+          <option value="ADMIN">ADMIN</option>
+          <option value="OPS">OPS</option>
+           <option value="MARKETING">MARKETING</option>
+          <option value="CREDIT">CREDIT</option>
+          <option value="ACCOUNTANDFINANCE">ACCOUNTANDFINANCE</option>
+          <option value="DIRECTORS">DIRECTORS</option>
+          <option value="GROWTH">GROWTH</option>
           <option value="OTHER">OTHER</option>
         </select>
       </div>

@@ -11,6 +11,10 @@ const hrFetchRoutes = require('./routes/hrFetchRoutes');
 const adminFetchRoutes = require('./routes/adminFetchRoutes');
 const userFetchRoutes = require('./routes/fetchRecordUserRoute');
 const ceoFetchRoutes = require('./routes/ceoFetchRoutes');
+const opsFetchRoutes = require('./routes/opsRoutes');
+const marketingFetchRoutes = require('./routes/marketingRoutes');
+const creditFetchRoutes = require('./routes/creditRoutes');
+const accAndFinFetchRoutes = require('./routes/accAndFinRoutes');
 require('./db/conn');
 
 const app = express();
@@ -29,7 +33,11 @@ app.use('/api', fetchRecordRoutes);
 app.use('/api',hrFetchRoutes);
 app.use('/api',adminFetchRoutes);
 app.use('/api',userFetchRoutes);
-app.use('/api',ceoFetchRoutes);
+app.use('/api', ceoFetchRoutes);
+app.use('/api', opsFetchRoutes);
+app.use('/api', marketingFetchRoutes);
+app.use('/api', creditFetchRoutes);
+app.use('/api', accAndFinFetchRoutes);
 app.use('/api/department', authRoutes);
 
 

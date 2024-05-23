@@ -1,20 +1,21 @@
 // FetchRecord.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './FetchRecord.css';
 import StatusLegend from './StatusLegend';
 
-const FetchRecord = () => {
+const AccAndFinRecord = () => {
+    
     const [formDataList, setFormDataList] = useState([]);
     const [editedDataIndex, setEditedDataIndex] = useState(null);
     const [editedData, setEditedData] = useState({});
-    const [resolveTimeMap, setResolveTimeMap] = useState({}); // Map to store resolve times
-    const [countdownMap, setCountdownMap] = useState({}); // Map to store countdown timers
+    
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://13.235.164.94:5000/api/formData');
+                const response = await axios.get('http://13.235.164.94:5000/api/accfinrecord');
                 setFormDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);
@@ -46,30 +47,7 @@ const FetchRecord = () => {
             const updatedData = [...formDataList];
             updatedData[index] = editedData;
             setFormDataList(updatedData);
-
-            // Start countdown timer if the status is RESOLVE
-            if (editedData.status === 'RESOLVE') {
-                const resolveTime = new Date().getTime();
-                setResolveTimeMap((prev) => ({ ...prev, [editedData._id]: resolveTime }));
-
-                // Start countdown timer for 30 minutes
-                const countdown = setInterval(() => {
-                    const currentTime = new Date().getTime();
-                    const elapsedTime = currentTime - resolveTime;
-                    const remainingTime = 30 * 60 * 1000 - elapsedTime;
-
-                    // If time's up, clear timer and update status back to PENDING
-                    if (remainingTime <= 0) {
-                        clearInterval(countdown);
-                        handleEditDataChange('status', 'PENDING');
-                        handleSaveEditedData(index); // Save the change
-                    } else {
-                        setCountdownMap((prev) => ({ ...prev, [editedData._id]: remainingTime }));
-                    }
-                }, 1000); // Update every second
-            }
-
-            await axios.post('http://13.235.164.94:5000/api/update-data', editedData);
+            await axios.post('http://13.235.164.94:5000/api/update-accfindata', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});
@@ -78,7 +56,7 @@ const FetchRecord = () => {
         }
     };
 
-const getStatusColor = (status) => {
+   const getStatusColor = (status) => {
         switch (status) {
             case 'RESOLVE':
                 return 'lightgreen';
@@ -97,7 +75,7 @@ const getStatusColor = (status) => {
 
     return (
         <div>
-            <h2>IT FORM DATA LIST</h2>
+            <h2>ACCOUNT & FINANCE FORM DATA LIST</h2>
              <StatusLegend/>
             <table>
                 <thead>
@@ -161,7 +139,7 @@ const getStatusColor = (status) => {
                                         value={editedData.status}
                                         onChange={(e) => handleEditDataChange('status', e.target.value)}
                                     >
-                                        <option value="">Choose status</option>
+                                       <option value="">Choose status</option>
                                         <option value="RESOLVE">RESOLVE</option>
                                         <option value="PENDING">PENDING</option>
                                         <option value="IN PROGRESS">IN PROGRESS</option>
@@ -206,4 +184,4 @@ const getStatusColor = (status) => {
     );
 };
 
-export default FetchRecord;
+export default AccAndFinRecord;

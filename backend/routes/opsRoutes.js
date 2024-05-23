@@ -1,16 +1,18 @@
-// backend/routes/fetchRecordRoutes.js
-
 const express = require('express');
-const AdminDataModel = require('../models/AdminModel');
-
 const router = express.Router();
+const { OpsDataModel } = require('../models/commonModel');
+const opsRecordController = require('../controller/opsRecordController');
+
+
+// Get all form data
+router.get('/opsrecord', opsRecordController.getAllOpsData);
 
 // Route to update data
-router.post('/update-admindata', async (req, res) => {
+router.post('/update-opsdata', async (req, res) => {
     try {
         console.log('Received request to update data:', req.body); // Log the received request body
         const { _id, ...updatedData } = req.body;
-        const result = await AdminDataModel.findByIdAndUpdate(_id, updatedData, { new: true });
+        const result = await OpsDataModel.findByIdAndUpdate(_id, updatedData, { new: true });
         if (!result) {
             return res.status(404).json({ error: 'Data not found' });
         }
@@ -22,3 +24,4 @@ router.post('/update-admindata', async (req, res) => {
 });
 
 module.exports = router;
+

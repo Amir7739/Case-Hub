@@ -13,7 +13,7 @@ const departmentDataSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    enum: ['HR', 'IT', 'Admin','OTHER'],
+    enum: ['HR', 'IT', 'ADMIN', 'OPS','MARKETING','CREDIT','ACCOUNTANDFINANCE','DIRECTORS','GROWTH','OTHER'],
   },
 });
 

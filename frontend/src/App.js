@@ -9,6 +9,10 @@ import AdminFetchRecords from './components/AdminFetchRecords';
 import DepartmentLogin from './components/DepartmentLogin';
 import SignupPage from './components/SignupPage';
 import CeoFetchRecord from './components/CeoFetchRecord';
+import OpsRecord from './components/OpsRecord';
+import MarketingRecord from './components/MarketingRecord';
+import CreditRecord from './components/CreditRecord';
+import AccAndFinRecord from './components/AccAndFinRecord';
 
 function App() {
   return (
@@ -23,7 +27,11 @@ function App() {
           <Route path="/api/userstatus" element={<UserStatus />} />
           <Route path="/api/hrrecord" element={<HrFetchRecords/>}/>
           <Route path="/api/adminrecord" element={<AdminFetchRecords/>}/>
-          <Route path="/api/ceostatus" element={<CeoFetchRecord/>}/>
+          <Route path="/api/ceostatus" element={<CeoFetchRecord />} />
+          <Route path="/api/opsrecord" element={<OpsRecord />} />
+          <Route path="/api/markrecord" element={<MarketingRecord />} />
+          <Route path="/api/creditrecord" element={<CreditRecord />} />
+          <Route path="/api/accfinrecord" element={<AccAndFinRecord/>}/>
         </Routes>
       </div>
     </Router>

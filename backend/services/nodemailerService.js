@@ -3,7 +3,14 @@ const nodemailer = require('nodemailer');
 const departmentEmails = {
     'HR': 'alammamir00@gmail.com',
     'IT': 'fintechamir@gmail.com',
-    'Admin': 'amir773913@gmail.com',
+    'ADMIN': 'amir773913@gmail.com',
+    'OPS': 'alammamir00@gmail.com',
+    'MARKETING': 'fintechamir@gmail.com',
+    'CREDIT': 'amir773913@gmail.com',
+    'ACCOUNTANDFINANCE': 'alammamir00@gmail.com',
+    'DIRECTORS': 'fintechamir@gmail.com',
+    'GROWTH': 'amir773913@gmail.com',
+    'OTHER': 'amir773913@gmail.com',
     // Add more departments and their emails as needed
 };
 

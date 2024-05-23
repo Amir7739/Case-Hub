@@ -3,6 +3,7 @@
 const FormDataModel = require('../models/UserFormModels');
 const HrDataModel  = require('../models/HRModel');
 const AdminDataModel = require('../models/AdminModel');
+const  { OpsDataModel, MarketingDataModel, CreditDataModel, AccAndFinDataModel, GrowthDataModel, DirecotorDataModel } = require('../models/commonModel');
 const { sendEmailToAdmin } = require('../services/nodemailerService');
 
 exports.submitFormData = async (req, res) => {
@@ -23,8 +24,26 @@ exports.submitFormData = async (req, res) => {
                     ticketId: ticketId
                 });
                 break;
-            case 'Admin':
+            case 'ADMIN':
                 formDataModel = new AdminDataModel({
+                    ...req.body,
+                    ticketId: ticketId
+                });
+                break;
+            case 'OPS':
+                formDataModel = new OpsDataModel({
+                    ...req.body,
+                    ticketId: ticketId
+                });
+                break;
+            case 'MARKETING':
+                formDataModel = new MarketingDataModel({
+                    ...req.body,
+                    ticketId: ticketId
+                });
+                break;
+             case 'CREDIT':
+                formDataModel = new CreditDataModel({
                     ...req.body,
                     ticketId: ticketId
                 });

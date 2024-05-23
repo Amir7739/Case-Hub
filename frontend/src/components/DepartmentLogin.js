@@ -11,7 +11,13 @@ const DepartmentLogin = () => {
   const departmentEmails = {
     HR: 'hr@f2fintech.com',
     IT: 'it@f2fintech.com',
-    Admin: 'wecare@f2fintech.com',
+    ADMIN: 'wecare@f2fintech.com',
+    OPS: 'ops@f2fintech.com',
+    MARKETING: 'marketing@f2fintech.com',
+    CREDIT: 'credit@f2fintech.com',
+    ACCOUNTANDFINANCE: 'accountfinance@f2fintech.com',
+    DIRECTORS: 'directors@f2fintech.com',
+    GROWTH: 'growth@f2fintech.com',
     OTHER: 'other@f2fintech.com'
   };
 
@@ -34,7 +40,7 @@ const DepartmentLogin = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/department/login', { email, password, type });
+      const res = await axios.post('http://13.235.164.94:5000/api/department/login', { email, password, type });
       console.log(res.data.msg); // Log the success message
 
       // Redirect based on department type
@@ -46,6 +52,18 @@ const DepartmentLogin = () => {
         navigate('/api/adminrecord');
       } else if (type === 'OTHER') {
         navigate('/api/ceostatus');
+      } else if (type === 'OPS') {
+        navigate('/api/opsrecord');
+      } else if (type === 'MARKETING') {
+        navigate('/api/markrecord');
+      } else if (type === 'CREDIT') {
+        navigate('/api/creditrecord');
+      } else if (type === 'ACCOUNTANDFINANCE') {
+        navigate('/api/accfinrecord');
+      } else if (type === 'DIRECTORS') {
+        navigate('/api/directorrecord');
+      } else if (type === 'GROWTH') {
+        navigate('/api/growthrecord');
       }
     } catch (err) {
       console.error(err.response ? err.response.data : err.message);
@@ -88,8 +106,12 @@ const DepartmentLogin = () => {
           <option value="">Select Department</option>
           <option value="HR">HR</option>
           <option value="IT">IT</option>
-          <option value="Admin">Admin</option>
-          <option value="OTHER">OTHER</option>
+          <option value="OPS">OPS</option>
+          <option value="ADMIN">ADMIN</option>
+           <option value="MARKETING">MARKETING</option>
+          <option value="CREDIT">CREDIT</option>
+          <option value="ACCOUNTANDFINANCE">ACCOUNTANDFINANCE</option>
+           <option value="OTHER">OTHER</option>
         </select>
       </div>
       <button className='dept-loginbtn' type="submit">LOGIN</button>

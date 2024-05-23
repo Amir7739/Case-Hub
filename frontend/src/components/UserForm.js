@@ -108,6 +108,7 @@ const UserForm = () => {
         'F2-369-231': 'HARSH BHARDWAJ',
         'F2-369-232': 'SURYA PRATAP',
         'F2-369-234': 'SAMIRUDDIN KHAN',
+        'F2-369-235': 'ANKIT KUMAR',
         'F2-369-238': 'HARSH',
         'F2-369-243': 'VISHAL',
         'F2-369-244': 'AKASH SINGHAL',
@@ -167,6 +168,22 @@ const UserForm = () => {
 
     const allEmployeeIds = [...f2EmployeeIds, ...f3EmployeeIds, ...intEmployeeIds];
 
+    const departmentToCategoriesMap = {
+    'HR': ['Leave adjustment', 'Half day', 'Salary helpdesk', 'Shift day time adjustment', 'Workplace harassment and discrimination', 'Performance appraisal dispute'],
+    'IT': ['System availability', 'System change request', 'System malfunctioning', 'Data quality on dialer', 'Internet issue', 'Movement of system', 'Headset issue', 'Dialer related query'],
+    'ADMIN': ['Empty water cooler', 'Watering of plants', 'Cleanliness', 'Printer issue', 'Need blank pages','Other'],
+    'OPS': ['File logged in or not', 'Wrong or error in case entry','Other'],
+    'PRODUCT': ['Need product PPT', 'Product training assistance', 'Update the data', 'Product knowledge assistance', 'Company profile PPT','Other'],
+    'MARKETING': ['Stationery issue', 'Maintenance issue', 'Other'],
+    'SALES': ['Product training assistance', 'Need a superior to talk to a client in my leader\'s absence', 'Assistance in handling customer complaint', 'Tele-calling training', 'Wrong or error in case entry', 'Other'],
+    'CREDIT': ['Delay in eligibility check of case', 'CIBIL check', 'Arrange PD call', 'Other'],
+    'ACCOUNTANDFINANCE': ['Reimbursement', 'Purchase of new item', 'Stationery issue', 'Maintenance issue', 'Other'],
+    'DIRECTORS': ['Personal issue discussion', 'Meeting with directors', 'Performance appraisal dispute', 'Stationery issue', 'Maintenance issue', 'Other'],
+    'GROWTH': ['Assistance in campaign design', 'Assistance in employee development', 'Assistance in mapping KPIs and KRAs', 'Support in managing team', 'Raise the issue with directors', 'Other'],
+    // Add more departments and their categories here
+};
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -185,7 +202,7 @@ const UserForm = () => {
                 dateCreated: currentDate,
                 resolveDate: formData.resolveDate || null // Ensure resolveDate is sent as null if empty
             };
-            const response = await axios.post('http://localhost:5000/submitdata', updatedFormData);
+            const response = await axios.post('http://13.235.164.94:5000/submitdata', updatedFormData);
 
             console.log(response.data);
             setSuccessMessage('Issue raised successfully!');
@@ -216,70 +233,67 @@ const UserForm = () => {
 
     return (
         <div className="form-container">
-            <form onSubmit={handleSubmit} className="form">
-                <h1>Case Issue Form</h1>
-                <div className="form-group">
-                    <label htmlFor="empId">EmpId:</label>
-                    <select name="empId" id="empId" value={formData.empId} onChange={handleChange}>
-                        <option value="">Select Employee ID</option>
-                        {allEmployeeIds.map(empId => (
-                            <option key={empId} value={empId}>{empId}</option>
-                        ))}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="empName">Emp Name:</label>
-                    <input type="text" name="empName" id="empName" value={formData.empName} onChange={handleChange} placeholder="Employee Name" readOnly />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input type="text" name="email" id="email" value={formData.email} onChange={handleChange} placeholder="Please Enter Your Email" />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="assignedTo">Assigned To:</label>
-                    <select name="assignedTo" id="assignedTo" value={formData.assignedTo} onChange={handleChange}>
-                        <option value="">Select Department</option>
-                        <option value="HR">HR</option>
-                        <option value="IT">IT</option>
-                        <option value="Admin">Admin</option>
-                        {/* Add more options as needed */}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="closureDetails">Closure Details:</label>
-                    <input type="text" name="closureDetails" id="closureDetails" value={formData.closureDetails} onChange={handleChange} placeholder="Closure Details" />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="priority">Priority:</label>
-                    <select name="priority" id="priority" value={formData.priority} onChange={handleChange}>
+        <form onSubmit={handleSubmit} className="form">
+            <h1>Query Hub Form</h1>
+            <div className="form-group">
+                <label htmlFor="empId">EmpId:</label>
+                <select name="empId" id="empId" value={formData.empId} onChange={handleChange}>
+                    <option value="">Select Employee ID</option>
+                    {allEmployeeIds.map(empId => (
+                        <option key={empId} value={empId}>{empId}</option>
+                    ))}
+                </select>
+            </div>
+            <div className="form-group">
+                <label htmlFor="empName">Emp Name:</label>
+                <input type="text" name="empName" id="empName" value={formData.empName} onChange={handleChange} placeholder="Employee Name" readOnly />
+            </div>
+            <div className="form-group">
+                <label htmlFor="email">Email:</label>
+                <input type="text" name="email" id="email" value={formData.email} onChange={handleChange} placeholder="Please Enter Your Email" />
+            </div>
+            <div className="form-group">
+                <label htmlFor="assignedTo">Assigned To:</label>
+                <select name="assignedTo" id="assignedTo" value={formData.assignedTo} onChange={handleChange}>
+                    <option value="">Select Department</option>
+                    {Object.keys(departmentToCategoriesMap).map(department => (
+                        <option key={department} value={department}>{department}</option>
+                    ))}
+                </select>
+            </div>
+            <div className="form-group">
+                <label htmlFor="category">Issue Category:</label>
+                <select name="category" id="category" value={formData.category} onChange={handleChange} disabled={!formData.assignedTo}>
+                    <option value="">Select Category</option>
+                    {formData.assignedTo && departmentToCategoriesMap[formData.assignedTo]?.map(category => (
+                        <option key={category} value={category}>{category}</option>
+                    ))}
+                </select>
+            </div>
+            {/* <div className="form-group">
+                <label htmlFor="closureDetails">Closure Details:</label>
+                <input type="text" name="closureDetails" id="closureDetails" value={formData.closureDetails} onChange={handleChange} placeholder="Closure Details" />
+            </div> */}
+            <div className="form-group">
+                <label htmlFor="priority">Priority:</label>
+                <select name="priority" id="priority" value={formData.priority} onChange={handleChange}>
                         <option value="">Select Priority</option>
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="High">High</option>
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="category">Issue Category:</label>
-                    <select name="category" id="category" value={formData.category} onChange={handleChange}>
-                        <option value="">Select Category</option>
-                        <option value="System Related Query">System Related Query</option>
-                        <option value="Dialer Related Query">Dialer Related Query</option>
-                        <option value="Heat Set Issue">Head Set Issue</option>
-                        <option value="Internet Issue">Internet Issue</option>
-                        <option value="Wrong Data Issue">Wrong Data Issue</option>
-                        <option value="Aws Bill">Aws Bill</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description:</label>
-                    <textarea name="description" id="description" value={formData.description} onChange={handleChange} placeholder="Description" rows="4" cols="50" />
-                </div>
-                <button type="submit" className="submit-btn">Submit</button>
-            </form>
-            {successMessage && <p className="success-message">{successMessage}</p>}
-        </div>
-    );
+                        <option value="Urgent">Urgent</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            
+            <div className="form-group">
+                <label htmlFor="description">Description:</label>
+                <textarea name="description" id="description" value={formData.description} onChange={handleChange} placeholder="Description" rows="4" cols="50" />
+            </div>
+            <button type="submit" className="submit-btn">Submit</button>
+        </form>
+        {successMessage && <p className="success-message">{successMessage}</p>}
+    </div>
+);
 };
 
 export default UserForm;

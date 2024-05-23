@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './FetchRecord.css';
+import StatusLegend from './StatusLegend';
 
 const AdminFetchRecords = () => {
     
@@ -14,7 +15,7 @@ const AdminFetchRecords = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/adminrecord');
+                const response = await axios.get('http://13.235.164.94:5000/api/adminrecord');
                 setFormDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);
@@ -46,7 +47,7 @@ const AdminFetchRecords = () => {
             const updatedData = [...formDataList];
             updatedData[index] = editedData;
             setFormDataList(updatedData);
-            await axios.post('http://localhost:5000/api/update-admindata', editedData);
+            await axios.post('http://13.235.164.94:5000/api/update-admindata', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});
@@ -55,9 +56,27 @@ const AdminFetchRecords = () => {
         }
     };
 
+   const getStatusColor = (status) => {
+        switch (status) {
+            case 'RESOLVE':
+                return 'lightgreen';
+            case 'PENDING':
+                return 'yellow';
+            case 'IN PROGRESS':
+                return 'lightblue';
+            case 'ON HOLD':
+                return 'orange';
+            case 'ESCALATED':
+                return 'lightcoral';
+            default:
+                return '';
+        }
+    };
+
     return (
         <div>
-            <h2>ADMIN FORM DATA LIST</h2>
+            <h2>IT FORM DATA LIST</h2>
+             <StatusLegend/>
             <table>
                 <thead>
                     <tr>
@@ -66,12 +85,12 @@ const AdminFetchRecords = () => {
                         <th>EMP NAME</th>
                         <th>EMP Email</th>
                         <th>DATE CREATED</th>
-                        <th>Resolve Date</th>
+                        <th>RESOLVE DATE</th>
                         <th>PRIORITY</th>
                         <th>CATEGORY</th>
                         <th>DEPARTMENT</th>
                         <th>DESCRIPTION</th>
-                        <th>CASE STATUS</th>
+                        <th>ISSUE STATUS</th>
                         <th>COMMENTS</th>
                         <th>FEEDBACK</th>
                         <th>EDIT</th>
@@ -80,7 +99,7 @@ const AdminFetchRecords = () => {
                 </thead>
                 <tbody>
                     {formDataList.map((formData, index) => (
-                       <tr key={formData._id} style={{ backgroundColor: formData.status === 'RESOLVE' ? 'lightgreen' : formData.status === 'PENDING' ? 'yellow' : '' }}>
+                         <tr key={formData._id} style={{ backgroundColor: getStatusColor(formData.status) }}>
                             <td>
                                 {/* {editedDataIndex === index ? (
                                     <input
@@ -120,9 +139,11 @@ const AdminFetchRecords = () => {
                                         value={editedData.status}
                                         onChange={(e) => handleEditDataChange('status', e.target.value)}
                                     >
-                                        <option value="">Choose status</option>
+                                       <option value="">Choose status</option>
                                         <option value="RESOLVE">RESOLVE</option>
                                         <option value="PENDING">PENDING</option>
+                                        <option value="IN PROGRESS">IN PROGRESS</option>
+                                        <option value="ESCALATED">ESCALATED</option>
                                     </select>
                                 ) : (
                                     formData.status

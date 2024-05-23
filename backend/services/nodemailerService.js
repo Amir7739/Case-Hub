@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 const departmentEmails = {
     'HR': 'alammamir00@gmail.com',
-    'IT': 'fintechamir@gmail.com',
+    'IT': 'it@f2fintech.com',
     'ADMIN': 'amir773913@gmail.com',
     'OPS': 'alammamir00@gmail.com',
     'MARKETING': 'fintechamir@gmail.com',
@@ -36,7 +36,7 @@ async function sendEmailToAdmin(formData, ticketId) {
         to: recipientEmail, // Use recipient email determined by assignedTo
         subject: 'New Form Submission',
         html: `
-            <h1>New Form Submission</h1>
+            <h1>THERE IS A NEW QUERY FROM QUERY HUB</h1>
             <p>Ticket ID: ${ticketId}</p>
             <p>Email: ${formData.email}</p>
             <p>Date Created: ${currentDateTimeIST}</p>

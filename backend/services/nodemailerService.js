@@ -1,15 +1,15 @@
 const nodemailer = require('nodemailer');
 
 const departmentEmails = {
-    'HR': 'alammamir00@gmail.com',
+    'HR': 'hr@f2fintech.com',
     'IT': 'it@f2fintech.com',
-    'ADMIN': 'amir773913@gmail.com',
-    'OPS': 'alammamir00@gmail.com',
-    'MARKETING': 'fintechamir@gmail.com',
-    'CREDIT': 'amir773913@gmail.com',
-    'ACCOUNTANDFINANCE': 'alammamir00@gmail.com',
-    'DIRECTORS': 'fintechamir@gmail.com',
-    'GROWTH': 'amir773913@gmail.com',
+    'ADMIN': 'hr@f2fintech.com',
+    'OPS': 'ops@f2fintech.com',
+    'MARKETING': 'marketing@f2fintech.com',
+    'CREDIT': 'credit@f2fintech.com',
+    'ACCOUNTANDFINANCE': 'accounts@f2fintech.com',
+    'DIRECTORS': 'wecare@f2fintech.com',
+    'GROWTH': 'growth@f2fintech.com',
     'OTHER': 'amir773913@gmail.com',
     // Add more departments and their emails as needed
 };
@@ -34,7 +34,7 @@ async function sendEmailToAdmin(formData, ticketId) {
     const mailOptions = {
         from: formData.email,
         to: recipientEmail, // Use recipient email determined by assignedTo
-        subject: 'New Form Submission',
+        subject: 'NEW QUERY FROM QUERY HUB',
         html: `
             <h1>THERE IS A NEW QUERY FROM QUERY HUB </h1>
             <p>Ticket ID: ${ticketId}</p>

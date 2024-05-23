@@ -34,6 +34,7 @@ const GrowthDataModel = mongoose.model('GrowthData', commonDataSchema);
 
 
 
+
 module.exports = {
     OpsDataModel,
     MarketingDataModel,
@@ -42,4 +43,5 @@ module.exports = {
     AccAndFinDataModel,
     DirecotorDataModel,
     GrowthDataModel,
+   
 };

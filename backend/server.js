@@ -15,6 +15,8 @@ const opsFetchRoutes = require('./routes/opsRoutes');
 const marketingFetchRoutes = require('./routes/marketingRoutes');
 const creditFetchRoutes = require('./routes/creditRoutes');
 const accAndFinFetchRoutes = require('./routes/accAndFinRoutes');
+const directorFetchRoutes = require('./routes/directorRoutes');
+const growthFetchRoutes = require('./routes/growthRoutes');
 require('./db/conn');
 
 const app = express();
@@ -38,6 +40,8 @@ app.use('/api', opsFetchRoutes);
 app.use('/api', marketingFetchRoutes);
 app.use('/api', creditFetchRoutes);
 app.use('/api', accAndFinFetchRoutes);
+app.use('/api', directorFetchRoutes);
+app.use('/api', growthFetchRoutes);
 app.use('/api/department', authRoutes);
 
 

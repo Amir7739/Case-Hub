@@ -48,6 +48,25 @@ exports.submitFormData = async (req, res) => {
                     ticketId: ticketId
                 });
                 break;
+             case 'ACCOUNTANDFINANCE':
+                formDataModel = new AccAndFinDataModel({
+                    ...req.body,
+                    ticketId: ticketId
+                });
+                break;
+             case 'DIRECTORS':
+                formDataModel = new DirecotorDataModel({
+                    ...req.body,
+                    ticketId: ticketId
+                });
+                break;
+                break;
+             case 'GROWTH':
+                formDataModel = new GrowthDataModel({
+                    ...req.body,
+                    ticketId: ticketId
+                });
+                break;
             // Add cases for other departments as needed
             default:
                 throw new Error('Invalid department');

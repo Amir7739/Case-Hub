@@ -36,7 +36,7 @@ async function sendEmailToAdmin(formData, ticketId) {
         to: recipientEmail, // Use recipient email determined by assignedTo
         subject: 'New Form Submission',
         html: `
-            <h1>THERE IS A NEW QUERY FROM QUERY HUB</h1>
+            <h1>THERE IS A NEW QUERY FROM QUERY HUB </h1>
             <p>Ticket ID: ${ticketId}</p>
             <p>Email: ${formData.email}</p>
             <p>Date Created: ${currentDateTimeIST}</p>

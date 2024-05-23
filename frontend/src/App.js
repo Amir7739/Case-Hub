@@ -13,6 +13,8 @@ import OpsRecord from './components/OpsRecord';
 import MarketingRecord from './components/MarketingRecord';
 import CreditRecord from './components/CreditRecord';
 import AccAndFinRecord from './components/AccAndFinRecord';
+import DirectorRecord from './components/DirectorRecord';
+import GrowthRecord from './components/GrowthRecord';
 
 function App() {
   return (
@@ -31,7 +33,9 @@ function App() {
           <Route path="/api/opsrecord" element={<OpsRecord />} />
           <Route path="/api/markrecord" element={<MarketingRecord />} />
           <Route path="/api/creditrecord" element={<CreditRecord />} />
-          <Route path="/api/accfinrecord" element={<AccAndFinRecord/>}/>
+          <Route path="/api/accfinrecord" element={<AccAndFinRecord />} />
+          <Route path="/api/directorrecord" element={<DirectorRecord />} />
+          <Route path="/api/growthrecord" element={<GrowthRecord/>}/>
         </Routes>
       </div>
     </Router>

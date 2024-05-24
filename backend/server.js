@@ -17,6 +17,10 @@ const creditFetchRoutes = require('./routes/creditRoutes');
 const accAndFinFetchRoutes = require('./routes/accAndFinRoutes');
 const directorFetchRoutes = require('./routes/directorRoutes');
 const growthFetchRoutes = require('./routes/growthRoutes');
+
+const documentsRouter = require('./routes/documents');
+
+const bookingRoutes = require("./routes/bookingRoutes");
 require('./db/conn');
 
 const app = express();
@@ -43,7 +47,8 @@ app.use('/api', accAndFinFetchRoutes);
 app.use('/api', directorFetchRoutes);
 app.use('/api', growthFetchRoutes);
 app.use('/api/department', authRoutes);
-
+app.use("/", bookingRoutes);
+app.use('/api/documents', documentsRouter); // Updated route prefix
 
 // Start server
 app.listen(PORT, () => {

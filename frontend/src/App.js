@@ -15,6 +15,10 @@ import CreditRecord from './components/CreditRecord';
 import AccAndFinRecord from './components/AccAndFinRecord';
 import DirectorRecord from './components/DirectorRecord';
 import GrowthRecord from './components/GrowthRecord';
+import IndexPage from './components/IndexPage';
+import DataPage from './components/DataPage';
+import ThankYouPage from './components/ThankYouPage';
+import FormWrapper from './components/FormWrapper';
 
 function App() {
   return (
@@ -35,7 +39,11 @@ function App() {
           <Route path="/api/creditrecord" element={<CreditRecord />} />
           <Route path="/api/accfinrecord" element={<AccAndFinRecord />} />
           <Route path="/api/directorrecord" element={<DirectorRecord />} />
-          <Route path="/api/growthrecord" element={<GrowthRecord/>}/>
+          <Route path="/api/growthrecord" element={<GrowthRecord />} />
+          <Route path="/home" element={<IndexPage />}></Route>
+            <Route path="/docs-sharing" element={<FormWrapper/>}></Route>
+        <Route path="/data" element={<DataPage/>}></Route>
+        <Route path="/thankyou" element={<ThankYouPage />}></Route>
         </Routes>
       </div>
     </Router>

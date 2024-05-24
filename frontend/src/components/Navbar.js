@@ -4,16 +4,37 @@ import './Navbar.css';
 
 const Navbar = () => {
   const [showLoginDropdown, setShowLoginDropdown] = useState(false);
-  const dropdownRef = useRef(null);
+  const [showRoomBookingDropdown, setShowRoomBookingDropdown] = useState(false);
+  const loginDropdownRef = useRef(null);
+  const roomBookingDropdownRef = useRef(null);
 
   const toggleLoginDropdown = () => {
     setShowLoginDropdown(!showLoginDropdown);
+    if (showRoomBookingDropdown) {
+      setShowRoomBookingDropdown(false);
+    }
+  };
+
+  const toggleRoomBookingDropdown = () => {
+    setShowRoomBookingDropdown(!showRoomBookingDropdown);
+    if (showLoginDropdown) {
+      setShowLoginDropdown(false);
+    }
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        loginDropdownRef.current &&
+        !loginDropdownRef.current.contains(event.target)
+      ) {
         setShowLoginDropdown(false);
+      }
+      if (
+        roomBookingDropdownRef.current &&
+        !roomBookingDropdownRef.current.contains(event.target)
+      ) {
+        setShowRoomBookingDropdown(false);
       }
     };
 
@@ -33,13 +54,14 @@ const Navbar = () => {
       </div>
       <div className="navbar__buttons">
         <Link to="/" className="navbar__link">
-          <button className="navbar__button">Case Issue Form</button>
+          <button className="navbar__button">Query Hub</button>
         </Link>
         <Link to="/signup" className="navbar__link">
           <button className="navbar__button">Sign up</button>
         </Link>
-        <div className="navbar__loginContainer" ref={dropdownRef}>
-          <button className="navbar__button" onClick={toggleLoginDropdown}>Login</button>
+        
+        <div className="navbar__loginContainer" ref={loginDropdownRef}>
+          <button className="navbar__button" onClick={toggleLoginDropdown}>Query Hub Login</button>
           {showLoginDropdown && (
             <div className="navbar__dropdown">
               <Link to="/api/userstatus" className="navbar__link">
@@ -48,10 +70,24 @@ const Navbar = () => {
               <Link to="/login" className="navbar__link">
                 <button className="navbar__dropdownButton">Other</button>
               </Link>
-              
             </div>
           )}
         </div>
+
+        <div className="navbar__loginContainer" ref={roomBookingDropdownRef}>
+          <button className="navbar__button" onClick={toggleRoomBookingDropdown}>Room Booking</button>
+          {showRoomBookingDropdown && (
+            <div className="navbar__dropdown">
+              <Link to="/home" className="navbar__link">
+                <button className="navbar__dropdownButton">Book Room</button>
+              </Link>
+              <Link to="/data" className="navbar__link">
+                <button className="navbar__dropdownButton">Check Room Status</button>
+              </Link>
+            </div>
+          )}
+        </div>
+
       </div>
     </nav>
   );

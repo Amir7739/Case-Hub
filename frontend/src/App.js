@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import FetchRecord from './components/FetchRecord';
 import UserForm from './components/UserForm';
 import UserStatus from './components/UserStatus';
-import Navbar from './components/Navbar'; // Import the Navbar component
 import HrFetchRecords from './components/HrFetchRecords';
 import AdminFetchRecords from './components/AdminFetchRecords';
 import DepartmentLogin from './components/DepartmentLogin';
@@ -19,20 +18,20 @@ import IndexPage from './components/IndexPage';
 import DataPage from './components/DataPage';
 import ThankYouPage from './components/ThankYouPage';
 import FormWrapper from './components/FormWrapper';
+import Layout from './components/Layout';
 
 function App() {
   return (
     <Router>
-      <div>
-        <Navbar /> {/* Add the Navbar component */}
+      <Layout>
         <Routes>
           <Route path="/" element={<UserForm />} />
           <Route path="/login" element={<DepartmentLogin />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/api/formData" element={<FetchRecord />} />
           <Route path="/api/userstatus" element={<UserStatus />} />
-          <Route path="/api/hrrecord" element={<HrFetchRecords/>}/>
-          <Route path="/api/adminrecord" element={<AdminFetchRecords/>}/>
+          <Route path="/api/hrrecord" element={<HrFetchRecords />} />
+          <Route path="/api/adminrecord" element={<AdminFetchRecords />} />
           <Route path="/api/ceostatus" element={<CeoFetchRecord />} />
           <Route path="/api/opsrecord" element={<OpsRecord />} />
           <Route path="/api/markrecord" element={<MarketingRecord />} />
@@ -40,12 +39,12 @@ function App() {
           <Route path="/api/accfinrecord" element={<AccAndFinRecord />} />
           <Route path="/api/directorrecord" element={<DirectorRecord />} />
           <Route path="/api/growthrecord" element={<GrowthRecord />} />
-          <Route path="/home" element={<IndexPage />}></Route>
-            <Route path="/docs-sharing" element={<FormWrapper/>}></Route>
-        <Route path="/data" element={<DataPage/>}></Route>
-        <Route path="/thankyou" element={<ThankYouPage />}></Route>
+          <Route path="/home" element={<IndexPage />} />
+          <Route path="/docs-sharing" element={<FormWrapper />} />
+          <Route path="/data" element={<DataPage />} />
+          <Route path="/thankyou" element={<ThankYouPage />} />
         </Routes>
-      </div>
+      </Layout>
     </Router>
   );
 }

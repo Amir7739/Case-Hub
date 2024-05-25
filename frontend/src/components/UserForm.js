@@ -170,14 +170,14 @@ const UserForm = () => {
 
     const departmentToCategoriesMap = {
     'HR': ['Leave adjustment', 'Half day', 'Salary helpdesk', 'Shift day time adjustment', 'Workplace harassment and discrimination', 'Performance appraisal dispute'],
-    'IT': ['System availability', 'System change request', 'System malfunctioning', 'Data quality on dialer', 'Internet issue', 'Movement of system', 'Headset issue', 'Dialer related query'],
+    'IT': ['System availability', 'System change request', 'System malfunctioning', 'Data quality on dialer', 'Internet issue', 'Movement of system', 'Headset issue', 'Dialer related query','OMS Not Working', 'Printer Issue'],
     'ADMIN': ['Empty water cooler', 'Watering of plants', 'Cleanliness', 'Printer issue', 'Need blank pages','Other'],
-    'OPS': ['File logged in or not', 'Wrong or error in case entry','Other'],
-    'PRODUCT': ['Need product PPT', 'Product training assistance', 'Update the data', 'Product knowledge assistance', 'Company profile PPT','Other'],
+    'OPS': ['Delayed response on case', 'Banker number confirmation','Customer mail initiation', 'Customer visit initiation','Other'],
+    'PRODUCT': ['Need product PPT', 'Product training assistance', 'Update the product details', 'Product knowledge assistance', 'Company profile PPT','Other'],
     'MARKETING': ['Stationery issue', 'Maintenance issue', 'Other'],
     'SALES': ['Product training assistance', 'Need a superior to talk to a client in my leader\'s absence', 'Assistance in handling customer complaint', 'Tele-calling training', 'Wrong or error in case entry', 'Other'],
     'CREDIT': ['Delay in eligibility check of case', 'CIBIL check', 'Arrange PD call', 'Other'],
-    'ACCOUNTANDFINANCE': ['Reimbursement', 'Purchase of new item', 'Stationery issue', 'Maintenance issue', 'Other'],
+    'ACCOUNTANDFINANCE': ['Purchase of new item', 'Stationery issue', 'Maintenance issue', 'Channel Partner Payment', 'Gift Card', 'Regular expenses raise request','Travel reimbursement', 'Food reimbursement','Regular Expenses','Contest reimbursement','Other'],
     'DIRECTORS': ['Personal issue discussion', 'Meeting with directors', 'Performance appraisal dispute', 'Stationery issue', 'Maintenance issue', 'Other'],
     'GROWTH': ['Assistance in campaign design', 'Assistance in employee development', 'Assistance in mapping KPIs and KRAs', 'Support in managing team', 'Raise the issue with directors', 'Other'],
     // Add more departments and their categories here
@@ -202,7 +202,7 @@ const UserForm = () => {
                 dateCreated: currentDate,
                 resolveDate: formData.resolveDate || null // Ensure resolveDate is sent as null if empty
             };
-            const response = await axios.post('http://13.235.164.94:5000/submitdata', updatedFormData);
+            const response = await axios.post('http://localhost:5000/submitdata', updatedFormData);
 
             console.log(response.data);
             setSuccessMessage('Issue raised successfully!');

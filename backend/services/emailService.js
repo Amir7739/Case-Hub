@@ -19,9 +19,11 @@ exports.sendConfirmationEmail = function (
 ) {
   const mailOptions = {
     from: "rituanuragi1@gmail.com",
-    to: "rituf2fintech@gmail.com",
-    subject: "Thanks For Informing, HR TEAM",
+    to: "hr@f2fintech.com",
+    subject: "Request For Conference Room Booking",
     text:
+      "Dear HR Team,\n\n" +
+      "I am writing to request the booking of the conference room. Please find the details below:\n\n" +
       `Name: ${name}\n` +
       `Message: ${message}\n` +
       `Department: ${department}\n` +

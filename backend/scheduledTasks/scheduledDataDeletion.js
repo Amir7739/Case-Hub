@@ -53,7 +53,7 @@ cron.schedule('0 0 * * *', async () => { // Executes at midnight every day
             await Model.deleteMany({ $and: [{ status: 'RESOLVE' }, { userStatus: "ThankYou, It's Resolve😊" }, { resolveDate: { $lte: oneDayAgo } }] });
         }
 
-        console.log('Resolved data older than one day has been deleted...');
+        console.log('Resolved data older than one day has been deleted..');
     } catch (error) {
         console.error('Error deleting resolved data:', error);
     }

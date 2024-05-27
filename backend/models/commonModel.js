@@ -22,6 +22,7 @@ const commonDataSchema = new mongoose.Schema({
     attachment: [String],
     closureDetails: String,
     feedback: String,
+    userStatus: String
 });
 
 const OpsDataModel = mongoose.model('OpsData', commonDataSchema);
@@ -43,5 +44,6 @@ module.exports = {
     AccAndFinDataModel,
     DirecotorDataModel,
     GrowthDataModel,
+
    
 };

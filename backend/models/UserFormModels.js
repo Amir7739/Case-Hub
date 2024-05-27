@@ -23,7 +23,7 @@ const FormDataSchema = new mongoose.Schema({
     attachment: [String],
     closureDetails: String,
     feedback: String,
-    timeTaken: String
+    userStatus: String
 });
 
 const FormDataModel = mongoose.model('FormData', FormDataSchema);

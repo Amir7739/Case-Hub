@@ -22,6 +22,7 @@ const HrDataSchema = new mongoose.Schema({
     attachment: [String],
     closureDetails: String,
     feedback: String,
+    userStatus: String
 });
 
 const HrDataModel = mongoose.model('HrData', HrDataSchema);

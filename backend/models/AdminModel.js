@@ -22,6 +22,7 @@ const AdminDataSchema = new mongoose.Schema({
     attachment: [String],
     closureDetails: String,
     feedback: String,
+    userStatus: String
 });
 
 const AdminDataModel = mongoose.model('AdminData', AdminDataSchema);

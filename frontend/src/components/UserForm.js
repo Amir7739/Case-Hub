@@ -169,8 +169,8 @@ const UserForm = () => {
     const allEmployeeIds = [...f2EmployeeIds, ...f3EmployeeIds, ...intEmployeeIds];
 
     const departmentToCategoriesMap = {
-    'HR': ['Leave adjustment', 'Half day', 'Salary helpdesk', 'Shift day time adjustment', 'Workplace harassment and discrimination', 'Performance appraisal dispute'],
-    'IT': ['System availability', 'System change request', 'System malfunctioning', 'Data quality on dialer', 'Internet issue', 'Movement of system', 'Headset issue', 'Dialer related query','OMS Not Working', 'Printer Issue'],
+    'HR': ['Leave adjustment', 'Half day', 'Salary helpdesk', 'Shift day time adjustment', 'Workplace harassment and discrimination', 'Performance appraisal dispute','Other'],
+    'IT': ['System availability', 'System change request', 'System malfunctioning', 'Data quality on dialer', 'Internet issue', 'Movement of system', 'Headset issue', 'Dialer related query','OMS Not Working', 'Printer Issue','Other'],
     'ADMIN': ['Empty water cooler', 'Watering of plants', 'Cleanliness', 'Printer issue', 'Need blank pages','Other'],
     'OPS': ['Delayed response on case', 'Banker number confirmation','Customer mail initiation', 'Customer visit initiation','Other'],
     'PRODUCT': ['Need product PPT', 'Product training assistance', 'Update the product details', 'Product knowledge assistance', 'Company profile PPT','Other'],
@@ -202,7 +202,7 @@ const UserForm = () => {
                 dateCreated: currentDate,
                 resolveDate: formData.resolveDate || null // Ensure resolveDate is sent as null if empty
             };
-            const response = await axios.post('http://13.235.164.94:5000/submitdata', updatedFormData);
+            const response = await axios.post('http://localhost:5000/submitdata', updatedFormData);
 
             console.log(response.data);
             setSuccessMessage('Issue raised successfully!');

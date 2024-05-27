@@ -32,7 +32,7 @@ const SignupPage = () => {
       setTimeout(clearMessages, 4000);
     } else {
       try {
-        const userExistsRes = await axios.get(`http://13.235.164.94:5000/api/department/email/${email}`);
+        const userExistsRes = await axios.get(`http://13.235.164.94:5000/api/department/email/${email}`); 
         if (userExistsRes.data.exists) {
           setWarnMsg('Email already exists');
           setTimeout(clearMessages, 4000);

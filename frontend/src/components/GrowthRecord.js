@@ -47,7 +47,7 @@ const GrowthRecord = () => {
             const updatedData = [...formDataList];
             updatedData[index] = editedData;
             setFormDataList(updatedData);
-            await axios.post('http://13.235.164.94:5000/api/update-growthdata', editedData);
+            await axios.post('http://13.235.164.94:5000/api/update-growthdata', editedData); 
 
             setEditedDataIndex(null);
             setEditedData({});

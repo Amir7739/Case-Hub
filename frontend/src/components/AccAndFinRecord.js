@@ -20,7 +20,7 @@ const AccAndFinRecord = () => {
             } catch (error) {
                 console.error('Error fetching form data:', error);
             }
-        };
+        }; 
 
         fetchData();
     }, []);

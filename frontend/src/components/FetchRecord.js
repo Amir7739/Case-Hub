@@ -69,7 +69,7 @@ const FetchRecord = () => {
                 }, 1000); // Update every second
             }
 
-            await axios.post('http://13.235.164.94:5000/api/update-data', editedData);
+            await axios.post('http://13.235.164.94:5000/api/update-data', editedData); 
 
             setEditedDataIndex(null);
             setEditedData({});

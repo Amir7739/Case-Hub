@@ -14,7 +14,7 @@ const CeoFetchRecord = () => {
                 const response = await axios.get('http://13.235.164.94:5000/api/ceostatus');
                 setFormDataList(response.data);
             } catch (error) {
-                console.error('Error fetching form data:', error);
+                console.error('Error fetching form data:', error); 
             }
         };
 

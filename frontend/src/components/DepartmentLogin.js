@@ -32,7 +32,7 @@ const DepartmentLogin = () => {
     const { email, password, type } = formData;
 
     if (email !== departmentEmails[type]) {
-      setErrorMsg('Oops!!! Email or password does not match the selected department type😞');
+      setErrorMsg('Oops!!! Email or password does not match the selected department type😞'); 
       setTimeout(() => {
         setErrorMsg('');
       }, 5000);

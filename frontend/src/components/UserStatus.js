@@ -97,8 +97,8 @@ const UserStatus = () => {
                                 <th>ASSIGNEDTO</th>
                                 <th>DESCRIPTION</th>
                                 <th>CASE STATUS</th>
-                                    <th>COMMENTS</th>
-                                     <th>USER STATUS</th>
+                                <th>COMMENTS</th>
+                                <th>USER STATUS</th>
                                 <th>FEEDBACK</th>
                                 <th>EDIT</th>
                             </tr>

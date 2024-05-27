@@ -3,6 +3,7 @@ import axios from 'axios';
 import './FetchRecord.css';
 import StatusLegend from './StatusLegend';
 
+
 const HrFetchRecords = () => {
     const [formDataList, setFormDataList] = useState([]);
     const [editedDataIndex, setEditedDataIndex] = useState(null);
@@ -88,6 +89,7 @@ const HrFetchRecords = () => {
                         <th>DESCRIPTION</th>
                         <th>ISSUE STATUS</th>
                         <th>COMMENTS</th>
+                         <th>USER STATUS</th>
                         <th>FEEDBACK</th>
                         <th>EDIT</th>
 
@@ -96,7 +98,18 @@ const HrFetchRecords = () => {
                 <tbody>
                     {formDataList.map((formData, index) => (
                          <tr key={formData._id} style={{ backgroundColor: getStatusColor(formData.status) }}>
-                            <td>{formData.ticketId}</td>
+                            <td>
+                                {/* {editedDataIndex === index ? (
+                                    <input
+                                        type="text"
+                                        value={editedData.ticketId}
+                                        onChange={(e) => handleEditDataChange('ticketId', e.target.value)}
+                                    />
+                                ) : (
+                                    formData.ticketId
+                                )} */}
+                                {formData.ticketId}
+                            </td>
                             <td>{formData.empId}</td>
                             <td>{formData.empName}</td>
                             <td>{formData.email}</td>
@@ -109,10 +122,15 @@ const HrFetchRecords = () => {
                                     '-'
                                 )}
                             </td>
+
                             <td>{formData.priority}</td>
-                            <td>{formData.category}</td>
+                            {/* <td>{formData.category}</td> */}
+                            <td>
+                                {formData.category}
+                            </td>
                             <td>{formData.assignedTo}</td>
                             <td>{formData.description}</td>
+
                             <td>
                                 {editedDataIndex === index ? (
                                     <select
@@ -129,19 +147,24 @@ const HrFetchRecords = () => {
                                     formData.status
                                 )}
                             </td>
+
+
                             <td>
                                 {editedDataIndex === index ? (
                                     <input
                                         type="text"
                                         value={editedData.comments}
                                         onChange={(e) => handleEditDataChange('comments', e.target.value)}
-                                        
                                     />
                                 ) : (
                                     formData.comments
                                 )}
                             </td>
+
+                             <td>{formData.userStatus}</td>
+
                             <td>{formData.feedback}</td>
+
                             <td>
                                 {editedDataIndex === index ? (
                                     <button className="save-btn" onClick={() => handleSaveEditedData(index)}>

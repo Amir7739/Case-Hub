@@ -8,7 +8,7 @@ const ThankYouPage = () => {
       <div className="icon">&#10004;</div>
       <h1>Thank You!</h1>
       <p>Your request has been submitted successfully.</p>
-      <Link to="/" className="button">Back to Home</Link>
+      <Link to="/home" className="button">Back to Home</Link>
     </div>
   );
 };

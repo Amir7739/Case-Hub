@@ -77,7 +77,7 @@ const DirectorRecord = () => {
         <div>
             <h2>DIRECTOR FORM DATA LIST</h2>
              <StatusLegend/>
-            <table>
+             <table>
                 <thead>
                     <tr>
                         <th>TICKET ID</th>
@@ -92,6 +92,7 @@ const DirectorRecord = () => {
                         <th>DESCRIPTION</th>
                         <th>ISSUE STATUS</th>
                         <th>COMMENTS</th>
+                         <th>USER STATUS</th>
                         <th>FEEDBACK</th>
                         <th>EDIT</th>
 
@@ -162,6 +163,8 @@ const DirectorRecord = () => {
                                     formData.comments
                                 )}
                             </td>
+
+                             <td>{formData.userStatus}</td>
 
                             <td>{formData.feedback}</td>
 

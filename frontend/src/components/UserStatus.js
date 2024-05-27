@@ -97,7 +97,8 @@ const UserStatus = () => {
                                 <th>ASSIGNEDTO</th>
                                 <th>DESCRIPTION</th>
                                 <th>CASE STATUS</th>
-                                <th>COMMENTS</th>
+                                    <th>COMMENTS</th>
+                                     <th>USER STATUS</th>
                                 <th>FEEDBACK</th>
                                 <th>EDIT</th>
                             </tr>
@@ -124,6 +125,20 @@ const UserStatus = () => {
                                     <td>{formData.description}</td>
                                     <td>{formData.status}</td>
                                     <td>{formData.comments}</td>
+                                     <td>
+                                {editedDataIndex === index ? (
+                                    <select
+                                        value={editedData.userStatus}
+                                        onChange={(e) => handleEditDataChange('userStatus', e.target.value)}
+                                    >
+                                       <option value="">Choose issue resolve or not</option>
+                                        <option value="ThankYou, It's Resolve😊">ThankYou, It's Resolve😊</option>
+                                        <option value="No, Still looking out for a resolution😔">No, Still looking out for a resolution😔</option>
+                                    </select>
+                                ) : (
+                                    formData.userStatus
+                                )}
+                            </td>
                                     <td>
                                         {editedDataIndex === index ? (
                                             <input

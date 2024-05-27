@@ -24,7 +24,7 @@ const SignupPage = () => {
     e.preventDefault();
     setMessage(''); // Reset messages
     setWarnMsg('');
-    const validEmails = ['wecare@f2fintech.com', 'hr@f2fintech.com', 'it@f2fintech.com','ops@f2fintech.com','marketing@f2fintech.com','credit@f2fintech.com','accountfinance@f2fintech.com','other@f2fintech.com','directors@f2fintech.com','growth@f2fintech.com'];
+    const validEmails = ['wecare@f2fintech.com', 'hr@f2fintech.com', 'it@f2fintech.com','ops@f2fintech.com','marketing@f2fintech.com','credit@f2fintech.com','accounts@f2fintech.com','other@f2fintech.com','growth@f2fintech.com'];
     const { email } = formData;
 
     if (!validEmails.includes(email)) {

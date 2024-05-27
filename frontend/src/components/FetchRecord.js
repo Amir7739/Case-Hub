@@ -114,6 +114,7 @@ const getStatusColor = (status) => {
                         <th>DESCRIPTION</th>
                         <th>ISSUE STATUS</th>
                         <th>COMMENTS</th>
+                         <th>USER STATUS</th>
                         <th>FEEDBACK</th>
                         <th>EDIT</th>
 
@@ -161,7 +162,7 @@ const getStatusColor = (status) => {
                                         value={editedData.status}
                                         onChange={(e) => handleEditDataChange('status', e.target.value)}
                                     >
-                                        <option value="">Choose status</option>
+                                       <option value="">Choose status</option>
                                         <option value="RESOLVE">RESOLVE</option>
                                         <option value="PENDING">PENDING</option>
                                         <option value="IN PROGRESS">IN PROGRESS</option>
@@ -184,6 +185,8 @@ const getStatusColor = (status) => {
                                     formData.comments
                                 )}
                             </td>
+
+                             <td>{formData.userStatus}</td>
 
                             <td>{formData.feedback}</td>
 

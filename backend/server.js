@@ -21,6 +21,9 @@ const growthFetchRoutes = require('./routes/growthRoutes');
 const documentsRouter = require('./routes/documents');
 
 const bookingRoutes = require("./routes/bookingRoutes");
+
+const scheduledTasks = require('./scheduledTasks/scheduledDataDeletion');
+
 require('./db/conn');
 
 const app = express();
@@ -49,6 +52,8 @@ app.use('/api', growthFetchRoutes);
 app.use('/api/department', authRoutes);
 app.use("/", bookingRoutes);
 app.use('/api/documents', documentsRouter); // Updated route prefix
+
+
 
 // Start server
 app.listen(PORT, () => {

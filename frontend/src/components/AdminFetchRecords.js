@@ -92,6 +92,7 @@ const AdminFetchRecords = () => {
                         <th>DESCRIPTION</th>
                         <th>ISSUE STATUS</th>
                         <th>COMMENTS</th>
+                         <th>USER STATUS</th>
                         <th>FEEDBACK</th>
                         <th>EDIT</th>
 
@@ -162,6 +163,8 @@ const AdminFetchRecords = () => {
                                     formData.comments
                                 )}
                             </td>
+
+                             <td>{formData.userStatus}</td>
 
                             <td>{formData.feedback}</td>
 

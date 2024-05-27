@@ -11,12 +11,12 @@ const DepartmentLogin = () => {
   const departmentEmails = {
     HR: 'hr@f2fintech.com',
     IT: 'it@f2fintech.com',
-    ADMIN: 'wecare@f2fintech.com',
+    ADMIN: 'hr@f2fintech.com',
     OPS: 'ops@f2fintech.com',
     MARKETING: 'marketing@f2fintech.com',
     CREDIT: 'credit@f2fintech.com',
     ACCOUNTANDFINANCE: 'accountfinance@f2fintech.com',
-    DIRECTORS: 'directors@f2fintech.com',
+    DIRECTORS: 'wecare@f2fintech.com',
     GROWTH: 'growth@f2fintech.com',
     OTHER: 'other@f2fintech.com'
   };
@@ -104,12 +104,14 @@ const DepartmentLogin = () => {
         <label htmlFor="type">Department Type:</label>
         <select id="type" name="type" value={formData.type} onChange={onChange} required>
           <option value="">Select Department</option>
+            <option value="DIRECTORS">DIRECTORS</option>
           <option value="HR">HR</option>
           <option value="IT">IT</option>
           <option value="OPS">OPS</option>
           <option value="ADMIN">ADMIN</option>
            <option value="MARKETING">MARKETING</option>
           <option value="CREDIT">CREDIT</option>
+          <option value="GROWTH">GROWTH</option>
           <option value="ACCOUNTANDFINANCE">ACCOUNTANDFINANCE</option>
            <option value="OTHER">OTHER</option>
         </select>

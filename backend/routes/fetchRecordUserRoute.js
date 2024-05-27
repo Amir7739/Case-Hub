@@ -3,7 +3,7 @@ const router = express.Router();
 const UserFormModels = require('../models/UserFormModels');
 const HRModel = require('../models/HRModel');
 const AdminModel = require('../models/AdminModel');
-const { OpsDataModel, MarketingDataModel, CreditDataModel } = require('../models/commonModel');
+const  { OpsDataModel, MarketingDataModel, CreditDataModel, AccAndFinDataModel, GrowthDataModel, DirecotorDataModel, ProductDataModel} = require('../models/commonModel');
 const userFetchController = require('../controller/userFetchController');
 
 // Get all form data
@@ -34,6 +34,18 @@ router.post('/update-user', async (req, res) => {
                 break;
             case 'CREDIT':
                 result = await CreditDataModel.findByIdAndUpdate(updatedData._id, updatedData, { new: true });
+                break;
+             case 'ACCOUNTANDFINANCE':
+                result = await AccAndFinDataModel.findByIdAndUpdate(updatedData._id, updatedData, { new: true });
+                break;
+             case 'GROWTH':
+                result = await GrowthDataModel.findByIdAndUpdate(updatedData._id, updatedData, { new: true });
+                break;
+             case 'DIRECTORS':
+                result = await DirecotorDataModel.findByIdAndUpdate(updatedData._id, updatedData, { new: true });
+                break;
+             case 'PRODUCT':
+                result = await ProductDataModel.findByIdAndUpdate(updatedData._id, updatedData, { new: true });
                 break;
             default:
                 return res.status(400).json({ error: 'Invalid assignedTo value' });

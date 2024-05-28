@@ -47,7 +47,7 @@ const CreditRecord = () => {
             const updatedData = [...formDataList];
             updatedData[index] = editedData;
             setFormDataList(updatedData);
-            await axios.post('http://13.235.164.94:5000/api/update-creditdata', editedData); 
+            await axios.post('http://localhost:5000/api/update-creditdata', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});
@@ -92,7 +92,6 @@ const CreditRecord = () => {
                         <th>DESCRIPTION</th>
                         <th>ISSUE STATUS</th>
                         <th>COMMENTS</th>
-                         <th>USER STATUS</th>
                         <th>FEEDBACK</th>
                         <th>EDIT</th>
 
@@ -163,8 +162,6 @@ const CreditRecord = () => {
                                     formData.comments
                                 )}
                             </td>
-
-                             <td>{formData.userStatus}</td>
 
                             <td>{formData.feedback}</td>
 

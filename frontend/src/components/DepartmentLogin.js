@@ -1,9 +1,10 @@
+// src/components/DepartmentLogin.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './DepartmentLogin.css';
 
-const DepartmentLogin = () => {
+const DepartmentLogin = ({ setIsAuthenticated }) => {
   const [formData, setFormData] = useState({ email: '', password: '', type: '' });
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const DepartmentLogin = () => {
     const { email, password, type } = formData;
 
     if (email !== departmentEmails[type]) {
-      setErrorMsg('Oops!!! Email or password does not match the selected department type😞'); 
+      setErrorMsg('Oops!!! Email or password does not match the selected department type😞');
       setTimeout(() => {
         setErrorMsg('');
       }, 5000);
@@ -40,10 +41,11 @@ const DepartmentLogin = () => {
     }
 
     try {
-      const res = await axios.post('http://13.235.164.94:5000/api/department/login', { email, password, type });
+      const res = await axios.post('http://localhost:5000/api/department/login', { email, password, type });
       console.log(res.data.msg); // Log the success message
 
-      // Redirect based on department type
+      // Update authentication state and redirect based on department type
+      setIsAuthenticated(true);
       if (type === 'HR') {
         navigate('/api/hrrecord');
       } else if (type === 'IT') {
@@ -104,16 +106,16 @@ const DepartmentLogin = () => {
         <label htmlFor="type">Department Type:</label>
         <select id="type" name="type" value={formData.type} onChange={onChange} required>
           <option value="">Select Department</option>
-            <option value="DIRECTORS">DIRECTORS</option>
+          <option value="DIRECTORS">DIRECTORS</option>
           <option value="HR">HR</option>
           <option value="IT">IT</option>
           <option value="OPS">OPS</option>
           <option value="ADMIN">ADMIN</option>
-           <option value="MARKETING">MARKETING</option>
+          <option value="MARKETING">MARKETING</option>
           <option value="CREDIT">CREDIT</option>
           <option value="GROWTH">GROWTH</option>
           <option value="ACCOUNTANDFINANCE">ACCOUNTANDFINANCE</option>
-           <option value="OTHER">OTHER</option>
+          <option value="OTHER">OTHER</option>
         </select>
       </div>
       <button className='dept-loginbtn' type="submit">LOGIN</button>

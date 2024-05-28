@@ -15,7 +15,7 @@ const DirectorRecord = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://13.235.164.94:5000/api/directorrecord');
+                const response = await axios.get('http://localhost:5000/api/directorrecord');
                 setFormDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);
@@ -47,7 +47,7 @@ const DirectorRecord = () => {
             const updatedData = [...formDataList];
             updatedData[index] = editedData;
             setFormDataList(updatedData);
-            await axios.post('http://13.235.164.94:5000/api/update-directordata', editedData); 
+            await axios.post('http://localhost:5000/api/update-directordata', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});

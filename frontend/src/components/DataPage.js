@@ -12,7 +12,7 @@ const DataPage = () => {
 
  const fetchBookings = async () => {
     try {
-      const response = await axios.get("http://13.235.164.94:5000/bookings");
+      const response = await axios.get("http://localhost:5000/bookings");
       const today = moment().format("YYYY-MM-DD");
       const filteredBookings = response.data.filter((booking) => {
         return moment(booking.date).format("YYYY-MM-DD") === today;
@@ -27,7 +27,7 @@ const DataPage = () => {
     const newCheckoutTime = prompt("Update the new checkout time:");
     if (newCheckoutTime) {
       try {
-        const response = await axios.put(`http://13.235.164.94:5000/bookings/${id}`, {
+        const response = await axios.put(`http://localhost:5000/bookings/${id}`, {
           checkout: newCheckoutTime,
         });
 
@@ -50,7 +50,7 @@ const DataPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://13.235.164.94:5000/bookings/${id}`);
+      const response = await axios.delete(`http://localhost:5000/bookings/${id}`);
 
       if (response.status === 200) {
         setBookings(bookings.filter((booking) => booking._id !== id));
@@ -77,7 +77,7 @@ const DataPage = () => {
             <th>Room</th>
             <th>Action</th>
             <th>
-              <a href="http://13.235.164.94:5000/export-to-excel">Download</a>
+              <a href="http://localhost:5000/export-to-excel">Download</a>
             </th>
           </tr>
         </thead>

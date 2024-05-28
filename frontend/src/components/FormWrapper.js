@@ -16,7 +16,7 @@ function FormWrapper() {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-      axios.post('http://localhost:5000/api/documents/submit-documents', formData)
+      axios.post('http://13.235.164.94:5000/api/documents/submit-documents', formData)
             .then(response => {
                 displayMessage('success', response.data.message);
             })

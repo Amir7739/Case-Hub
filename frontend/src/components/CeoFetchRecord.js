@@ -11,7 +11,7 @@ const CeoFetchRecord = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/ceostatus');
+                const response = await axios.get('http://13.235.164.94:5000/api/ceostatus');
                 setFormDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);

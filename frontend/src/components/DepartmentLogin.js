@@ -41,7 +41,7 @@ const DepartmentLogin = ({ setIsAuthenticated }) => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/department/login', { email, password, type });
+      const res = await axios.post('http://13.235.164.94:5000/api/department/login', { email, password, type });
       console.log(res.data.msg); // Log the success message
 
       // Update authentication state and redirect based on department type

@@ -19,7 +19,7 @@ const IndexPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/home", {
+      const response = await fetch("http://13.235.164.94:5000/home", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

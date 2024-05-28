@@ -14,7 +14,7 @@ const FetchRecord = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/formData');
+                const response = await axios.get('http://13.235.164.94:5000/api/formData');
                 setFormDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);
@@ -69,7 +69,7 @@ const FetchRecord = () => {
                 }, 1000); // Update every second
             }
 
-            await axios.post('http://localhost:5000/api/update-data', editedData);
+            await axios.post('http://13.235.164.94:5000/api/update-data', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});

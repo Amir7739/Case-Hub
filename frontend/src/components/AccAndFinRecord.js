@@ -15,7 +15,7 @@ const AccAndFinRecord = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/accfinrecord');
+                const response = await axios.get('http://13.235.164.94:5000/api/accfinrecord');
                 setFormDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);
@@ -47,7 +47,7 @@ const AccAndFinRecord = () => {
             const updatedData = [...formDataList];
             updatedData[index] = editedData;
             setFormDataList(updatedData);
-            await axios.post('http://localhost:5000/api/update-accfindata', editedData);
+            await axios.post('http://13.235.164.94:5000/api/update-accfindata', editedData);
 
             setEditedDataIndex(null);
             setEditedData({});

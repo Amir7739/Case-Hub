@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './FetchRecord.css';
+import DataTable from './DataTable';
 import StatusLegend from './StatusLegend';
-
+import FilterPage from './FilterPage'; // Import the FilterPage component
 
 const HrFetchRecords = () => {
     const [formDataList, setFormDataList] = useState([]);
+    const [filteredDataList, setFilteredDataList] = useState([]);
     const [editedDataIndex, setEditedDataIndex] = useState(null);
     const [editedData, setEditedData] = useState({});
+    const [filters, setFilters] = useState({
+        empName: '',
+        empId: '',
+        dateCreated: '',
+        status: ''
+    });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://13.235.164.94:5000/api/hrrecord');
                 setFormDataList(response.data);
+                setFilteredDataList(response.data);
             } catch (error) {
                 console.error('Error fetching form data:', error);
             }
@@ -21,6 +30,10 @@ const HrFetchRecords = () => {
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        applyFilters();
+    }, [filters]);
 
     const handleEditData = (index) => {
         setEditedDataIndex(index);
@@ -44,6 +57,7 @@ const HrFetchRecords = () => {
             const updatedData = [...formDataList];
             updatedData[index] = editedData;
             setFormDataList(updatedData);
+            setFilteredDataList(updatedData);
             await axios.post('http://13.235.164.94:5000/api/update-hrdata', editedData);
 
             setEditedDataIndex(null);
@@ -53,7 +67,37 @@ const HrFetchRecords = () => {
         }
     };
 
-   const getStatusColor = (status) => {
+    const handleFilterChange = (field, value) => {
+        setFilters({
+            ...filters,
+            [field]: value
+        });
+    };
+
+    const applyFilters = () => {
+        const filteredData = formDataList.filter(item => {
+            const empNameMatch = filters.empName ? item.empName === filters.empName : true;
+            const empIdMatch = filters.empId ? item.empId.toString() === filters.empId : true;
+            const dateCreatedMatch = filters.dateCreated ? new Date(item.dateCreated).toISOString().split('T')[0] === filters.dateCreated : true;
+            const statusMatch = filters.status ? item.status === filters.status : true;
+             const priorityMatch = filters.priority ? item.priority === filters.priority : true;
+            
+
+            return empNameMatch && empIdMatch && dateCreatedMatch && statusMatch && priorityMatch;
+        });
+        setFilteredDataList(filteredData);
+    };
+
+    const clearFilters = () => {
+        setFilters({
+            empName: '',
+            empId: '',
+            dateCreated: '',
+            status: ''
+        });
+    };
+
+    const getStatusColor = (status) => {
         switch (status) {
             case 'RESOLVE':
                 return 'lightgreen';
@@ -70,116 +114,30 @@ const HrFetchRecords = () => {
         }
     };
 
+    const uniqueValues = (field) => {
+        return [...new Set(formDataList.map(item => item[field]))];
+    };
+
     return (
         <div>
-            <h2>IT FORM DATA LIST</h2>
-             <StatusLegend/>
-            <table>
-                <thead>
-                    <tr>
-                        <th>TICKET ID</th>
-                        <th>EMP ID</th>
-                        <th>EMP NAME</th>
-                        <th>EMP Email</th>
-                        <th>DATE CREATED</th>
-                        <th>RESOLVE DATE</th>
-                        <th>PRIORITY</th>
-                        <th>CATEGORY</th>
-                        <th>DEPARTMENT</th>
-                        <th>DESCRIPTION</th>
-                        <th>ISSUE STATUS</th>
-                        <th>COMMENTS</th>
-                         <th>USER STATUS</th>
-                        <th>FEEDBACK</th>
-                        <th>EDIT</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {formDataList.map((formData, index) => (
-                         <tr key={formData._id} style={{ backgroundColor: getStatusColor(formData.status) }}>
-                            <td>
-                                {/* {editedDataIndex === index ? (
-                                    <input
-                                        type="text"
-                                        value={editedData.ticketId}
-                                        onChange={(e) => handleEditDataChange('ticketId', e.target.value)}
-                                    />
-                                ) : (
-                                    formData.ticketId
-                                )} */}
-                                {formData.ticketId}
-                            </td>
-                            <td>{formData.empId}</td>
-                            <td>{formData.empName}</td>
-                            <td>{formData.email}</td>
-                            <td>{new Date(formData.dateCreated).toLocaleString('en-IN')}</td>
-                            <td>
-                                {formData.resolveDate ? (
-                                    // Display both date and time in Indian Standard Time
-                                    new Date(formData.resolveDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
-                                ) : (
-                                    '-'
-                                )}
-                            </td>
-
-                            <td>{formData.priority}</td>
-                            {/* <td>{formData.category}</td> */}
-                            <td>
-                                {formData.category}
-                            </td>
-                            <td>{formData.assignedTo}</td>
-                            <td>{formData.description}</td>
-
-                            <td>
-                                {editedDataIndex === index ? (
-                                    <select
-                                        value={editedData.status}
-                                        onChange={(e) => handleEditDataChange('status', e.target.value)}
-                                    >
-                                       <option value="">Choose status</option>
-                                        <option value="RESOLVE">RESOLVE</option>
-                                        <option value="PENDING">PENDING</option>
-                                        <option value="IN PROGRESS">IN PROGRESS</option>
-                                        <option value="ESCALATED">ESCALATED</option>
-                                    </select>
-                                ) : (
-                                    formData.status
-                                )}
-                            </td>
-
-
-                            <td>
-                                {editedDataIndex === index ? (
-                                    <input
-                                        type="text"
-                                        value={editedData.comments}
-                                        onChange={(e) => handleEditDataChange('comments', e.target.value)}
-                                    />
-                                ) : (
-                                    formData.comments
-                                )}
-                            </td>
-
-                             <td>{formData.userStatus}</td>
-
-                            <td>{formData.feedback}</td>
-
-                            <td>
-                                {editedDataIndex === index ? (
-                                    <button className="save-btn" onClick={() => handleSaveEditedData(index)}>
-                                        Save
-                                    </button>
-                                ) : (
-                                    <button className="edit-btn" onClick={() => handleEditData(index)}>
-                                        Edit
-                                    </button>
-                                )}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <h2>HR FORM DATA LIST</h2>
+            <StatusLegend />
+            <FilterPage
+                filters={filters}
+                setFilters={setFilters}
+                uniqueValues={uniqueValues}
+                handleFilterChange={handleFilterChange}
+                clearFilters={clearFilters}
+            />
+            <DataTable
+                filteredDataList={filteredDataList}
+                getStatusColor={getStatusColor}
+                editedDataIndex={editedDataIndex}
+                handleEditData={handleEditData}
+                handleEditDataChange={handleEditDataChange}
+                handleSaveEditedData={handleSaveEditedData}
+                editedData={editedData}
+            />
         </div>
     );
 };

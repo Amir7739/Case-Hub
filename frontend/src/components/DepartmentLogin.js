@@ -16,7 +16,7 @@ const DepartmentLogin = ({ setIsAuthenticated }) => {
     OPS: 'ops@f2fintech.com',
     MARKETING: 'marketing@f2fintech.com',
     CREDIT: 'credit@f2fintech.com',
-    ACCOUNTANDFINANCE: 'accountfinance@f2fintech.com',
+    ACCOUNTANDFINANCE: 'accounts@f2fintech.com',
     DIRECTORS: 'wecare@f2fintech.com',
     GROWTH: 'growth@f2fintech.com',
     OTHER: 'other@f2fintech.com'
@@ -50,7 +50,7 @@ const DepartmentLogin = ({ setIsAuthenticated }) => {
         navigate('/api/hrrecord');
       } else if (type === 'IT') {
         navigate('/api/formData');
-      } else if (type === 'Admin') {
+      } else if (type === 'ADMIN') {
         navigate('/api/adminrecord');
       } else if (type === 'OTHER') {
         navigate('/api/ceostatus');

@@ -79,3 +79,62 @@ table tr:nth-child(even) {
     text-align: center;
 }
 
+/* FetchRecord.css */
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-icon {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.filter-options {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-options select,
+.filter-options input,
+.filter-options button {
+    margin-right: 10px;
+    padding: 0px;
+}
+
+.filter-options button {
+    padding: 5px 10px;
+}
+
+/* FetchRecord.css */
+
+.clear-btn {
+   
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.clear-btn:hover {
+    background-color: #d63c0e;
+}
+
+/* FetchRecord.css */
+
+.date-input {
+    width: 400px; /* Adjust width as needed */
+    padding: 8px; /* Adjust padding as needed */
+    border: 1px solid #ced4da; /* Border color */
+    border-radius: 4px; /* Border radius */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.date-input:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #007bff; /* Change border color on focus */
+}

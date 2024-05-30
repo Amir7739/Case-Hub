@@ -3,7 +3,8 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ element: Component, isAuthenticated, ...rest }) => {
-  return isAuthenticated ? <Component {...rest} /> : <Navigate to="/login" />;
+  const isAuth = isAuthenticated || localStorage.getItem('isAuthenticated') === 'true';
+  return isAuth ? <Component {...rest} /> : <Navigate to="/otherlogin" />;
 };
 
 export default ProtectedRoute;

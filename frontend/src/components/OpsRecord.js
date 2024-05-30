@@ -93,7 +93,9 @@ const OpsRecord = () => {
             empName: '',
             empId: '',
             dateCreated: '',
-            status: ''
+            status: '',
+             priority: '', 
+             assignedTo: '',
         });
     };
 

@@ -20,7 +20,7 @@ const CeoFetchRecord = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://13.235.164.94:5000/api/ceostatus');
+                const response = await axios.get('http://localhost:5000/api/ceostatus');
                 setFormDataList(response.data);
                 setFilteredDataList(response.data);
             } catch (error) {
@@ -35,7 +35,7 @@ const CeoFetchRecord = () => {
         applyFilters();
     }, [filters]);
 
-   
+
 
     const handleFilterChange = (field, value) => {
         setFilters({
@@ -50,8 +50,9 @@ const CeoFetchRecord = () => {
             const empIdMatch = filters.empId ? item.empId.toString() === filters.empId : true;
             const dateCreatedMatch = filters.dateCreated ? new Date(item.dateCreated).toISOString().split('T')[0] === filters.dateCreated : true;
             const statusMatch = filters.status ? item.status === filters.status : true;
+            const matchDepartment = filters.assignedTo ? item.assignedTo === filters.assignedTo : true;
 
-            return empNameMatch && empIdMatch && dateCreatedMatch && statusMatch;
+            return empNameMatch && empIdMatch && dateCreatedMatch && statusMatch && matchDepartment;
         });
         setFilteredDataList(filteredData);
     };
@@ -61,7 +62,9 @@ const CeoFetchRecord = () => {
             empName: '',
             empId: '',
             dateCreated: '',
-            status: ''
+            status: '',
+             priority: '', 
+             assignedTo: '',
         });
     };
 
@@ -117,6 +120,12 @@ const CeoFetchRecord = () => {
                                 <option key={status} value={status}>{status}</option>
                             ))}
                         </select>
+                        <select value={filters.assignedTo} onChange={(e) => handleFilterChange('assignedTo', e.target.value)}>
+                            <option value="">Choose Department</option>
+                            {uniqueValues('assignedTo').map(assignedTo => (
+                                <option key={assignedTo} value={assignedTo}>{assignedTo}</option>
+                            ))}
+                        </select>
                         <button className='clear-btn' onClick={clearFilters}>Clear Filters</button>
                     </div>
                 )}
@@ -138,7 +147,7 @@ const CeoFetchRecord = () => {
                         <th>COMMENTS</th>
                         <th>USER STATUS</th>
                         <th>FEEDBACK</th>
-                      
+
                     </tr>
                 </thead>
                 <tbody>

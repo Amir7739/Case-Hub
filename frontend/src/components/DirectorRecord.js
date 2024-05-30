@@ -95,7 +95,9 @@ const DirectorRecord = () => {
             empName: '',
             empId: '',
             dateCreated: '',
-            status: ''
+            status: '',
+             priority: '', 
+             assignedTo: '',
         });
     };
 

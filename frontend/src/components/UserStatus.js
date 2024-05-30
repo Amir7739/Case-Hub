@@ -10,7 +10,7 @@ const UserStatus = () => {
     const [editedDataIndex, setEditedDataIndex] = useState(null);
     const [editedData, setEditedData] = useState({});
     const [authEmpId, setAuthEmpId] = useState(null);
-    
+
     const [filteredDataList, setFilteredDataList] = useState([]);
     const [filters, setFilters] = useState({
         empName: '',
@@ -36,11 +36,11 @@ const UserStatus = () => {
         }
     };
 
-useEffect(() => {
+    useEffect(() => {
         applyFilters();
     }, [filters]);
 
-   
+
 
     const handleFilterChange = (field, value) => {
         setFilters({
@@ -49,16 +49,15 @@ useEffect(() => {
         });
     };
 
-     const applyFilters = () => {
+    const applyFilters = () => {
         const filteredData = formDataList.filter(item => {
-            const empNameMatch = filters.empName ? item.empName === filters.empName : true;
-            const empIdMatch = filters.empId ? item.empId.toString() === filters.empId : true;
             const dateCreatedMatch = filters.dateCreated ? new Date(item.dateCreated).toISOString().split('T')[0] === filters.dateCreated : true;
             const statusMatch = filters.status ? item.status === filters.status : true;
-             const priorityMatch = filters.priority ? item.priority === filters.priority : true;
-            
+            const priorityMatch = filters.priority ? item.priority === filters.priority : true;
+            const matchDepartment = filters.assignedTo ? item.assignedTo === filters.assignedTo : true;
 
-            return empNameMatch && empIdMatch && dateCreatedMatch && statusMatch && priorityMatch;
+
+            return dateCreatedMatch && statusMatch && priorityMatch && matchDepartment;
         });
         setFilteredDataList(filteredData);
     };
@@ -68,7 +67,9 @@ useEffect(() => {
             empName: '',
             empId: '',
             dateCreated: '',
-            status: ''
+            status: '',
+             priority: '', 
+             assignedTo: '',
         });
     };
 
@@ -105,7 +106,7 @@ useEffect(() => {
         }
     };
 
-     const getStatusColor = (status) => {
+    const getStatusColor = (status) => {
         switch (status) {
             case 'RESOLVE':
                 return 'lightgreen';
@@ -121,7 +122,7 @@ useEffect(() => {
                 return '';
         }
     };
- const uniqueValues = (field) => {
+    const uniqueValues = (field) => {
         return [...new Set(formDataList.map(item => item[field]))];
     };
 
@@ -131,45 +132,41 @@ useEffect(() => {
                 <LoginPage onLogin={handleLogin} />
             ) : (
                 <>
-                        <h2>DATA LIST FOR USER {authEmpId}</h2>
-                        <StatusLegend />
-                            <div className="filter-container">
-                <FaFilter onClick={() => setShowFilters(!showFilters)} className="filter-icon" />
-                {showFilters && (
-                    <div className="filter-options">
-                        <select value={filters.empName} onChange={(e) => handleFilterChange('empName', e.target.value)}>
-                            <option value="">Employee Name</option>
-                            {uniqueValues('empName').map(empName => (
-                                <option key={empName} value={empName}>{empName}</option>
-                            ))}
-                        </select>
-                        <select value={filters.empId} onChange={(e) => handleFilterChange('empId', e.target.value)}>
-                            <option value="">Employee ID</option>
-                            {uniqueValues('empId').map(empId => (
-                                <option key={empId} value={empId}>{empId}</option>
-                            ))}
-                        </select>
-                        <input
-                            type="date"
-                            value={filters.dateCreated}
-                            onChange={(e) => handleFilterChange('dateCreated', e.target.value)}
-                        />
-                        <select value={filters.status} onChange={(e) => handleFilterChange('status', e.target.value)}>
-                            <option value="">Status</option>
-                            {uniqueValues('status').map(status => (
-                                <option key={status} value={status}>{status}</option>
-                            ))}
-                                    </select>
-                                      <select value={filters.priority} onChange={(e) => handleFilterChange('priority', e.target.value)}>
-                            <option value="">Priority</option>
-                            {uniqueValues('priority').map(priority => (
-                                <option key={priority} value={priority}>{priority}</option>
-                            ))}
-                        </select>
-                        <button className='clear-btn' onClick={clearFilters}>Clear Filters</button>
+                    <h2>DATA LIST FOR USER {authEmpId}</h2>
+                    <StatusLegend />
+                    <div className="filter-container">
+                        <FaFilter onClick={() => setShowFilters(!showFilters)} className="filter-icon" />
+                        {showFilters && (
+                            <div className="filter-options">
+
+                                <input
+                                    type="date"
+                                    value={filters.dateCreated}
+                                    onChange={(e) => handleFilterChange('dateCreated', e.target.value)}
+                                />
+                                <select value={filters.status} onChange={(e) => handleFilterChange('status', e.target.value)}>
+                                    <option value="">Choose Status</option>
+                                    {uniqueValues('status').map(status => (
+                                        <option key={status} value={status}>{status}</option>
+                                    ))}
+                                </select>
+                                <select value={filters.priority} onChange={(e) => handleFilterChange('priority', e.target.value)}>
+                                    <option value="">Choose Priority</option>
+                                    {uniqueValues('priority').map(priority => (
+                                        <option key={priority} value={priority}>{priority}</option>
+                                    ))}
+                                </select>
+
+                                <select value={filters.assignedTo} onChange={(e) => handleFilterChange('assignedTo', e.target.value)}>
+                                    <option value="">Choose Department</option>
+                                    {uniqueValues('assignedTo').map(assignedTo => (
+                                        <option key={assignedTo} value={assignedTo}>{assignedTo}</option>
+                                    ))}
+                                </select>
+                                <button className='clear-btn' onClick={clearFilters}>Clear Filters</button>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
                     <table>
                         <thead>
                             <tr>
@@ -184,8 +181,8 @@ useEffect(() => {
                                 <th>ASSIGNEDTO</th>
                                 <th>DESCRIPTION</th>
                                 <th>CASE STATUS</th>
-                                    <th>COMMENTS</th>
-                                     <th>USER STATUS</th>
+                                <th>COMMENTS</th>
+                                <th>USER STATUS</th>
                                 <th>FEEDBACK</th>
                                 <th>EDIT</th>
                             </tr>
@@ -199,33 +196,33 @@ useEffect(() => {
                                     <td>{formData.email}</td>
                                     <td>{new Date(formData.dateCreated).toLocaleString('en-IN')}</td>
                                     <td>
-                                {formData.resolveDate ? (
-                                    // Display both date and time in Indian Standard Time
-                                    new Date(formData.resolveDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
-                                ) : (
-                                    '-'
-                                )}
-                            </td>
+                                        {formData.resolveDate ? (
+                                            // Display both date and time in Indian Standard Time
+                                            new Date(formData.resolveDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+                                        ) : (
+                                            '-'
+                                        )}
+                                    </td>
                                     <td>{formData.priority}</td>
                                     <td>{formData.category}</td>
                                     <td>{formData.assignedTo}</td>
                                     <td>{formData.description}</td>
                                     <td>{formData.status}</td>
                                     <td>{formData.comments}</td>
-                                     <td>
-                                {editedDataIndex === index ? (
-                                    <select
-                                        value={editedData.userStatus}
-                                        onChange={(e) => handleEditDataChange('userStatus', e.target.value)}
-                                    >
-                                       <option value="">Choose issue resolve or not</option>
-                                        <option value="ThankYou, It's Resolve😊">ThankYou, It's Resolve😊</option>
-                                        <option value="No, Still looking out for a resolution😔">No, Still looking out for a resolution😔</option>
-                                    </select>
-                                ) : (
-                                    formData.userStatus
-                                )}
-                            </td>
+                                    <td>
+                                        {editedDataIndex === index ? (
+                                            <select
+                                                value={editedData.userStatus}
+                                                onChange={(e) => handleEditDataChange('userStatus', e.target.value)}
+                                            >
+                                                <option value="">Choose issue resolve or not</option>
+                                                <option value="ThankYou, It's Resolve😊">ThankYou, It's Resolve😊</option>
+                                                <option value="No, Still looking out for a resolution😔">No, Still looking out for a resolution😔</option>
+                                            </select>
+                                        ) : (
+                                            formData.userStatus
+                                        )}
+                                    </td>
                                     <td>
                                         {editedDataIndex === index ? (
                                             <input

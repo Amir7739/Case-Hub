@@ -88,12 +88,14 @@ const AccAndFinRecord = () => {
         setFilteredDataList(filteredData);
     };
 
-    const clearFilters = () => {
+   const clearFilters = () => {
         setFilters({
             empName: '',
             empId: '',
             dateCreated: '',
-            status: ''
+            status: '',
+             priority: '', 
+             assignedTo: '',
         });
     };
 

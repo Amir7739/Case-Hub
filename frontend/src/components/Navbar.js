@@ -67,7 +67,7 @@ const Navbar = () => {
               <Link to="/api/userstatus" className="navbar__link">
                 <button className="navbar__dropdownButton">User</button>
               </Link>
-              <Link to="/login" className="navbar__link">
+              <Link to="/otherlogin" className="navbar__link">
                 <button className="navbar__dropdownButton">Other</button>
               </Link>
             </div>

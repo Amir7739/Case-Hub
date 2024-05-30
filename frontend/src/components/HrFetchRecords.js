@@ -93,7 +93,9 @@ const HrFetchRecords = () => {
             empName: '',
             empId: '',
             dateCreated: '',
-            status: ''
+            status: '',
+             priority: '', 
+             assignedTo: '',
         });
     };
 

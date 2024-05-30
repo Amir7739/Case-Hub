@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import FetchRecord from './components/FetchRecord';
 import UserForm from './components/UserForm';
@@ -22,29 +22,40 @@ import FormWrapper from './components/FormWrapper';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 
+
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+ const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
+
+  useEffect(() => {
+    const authTimeout = setTimeout(() => {
+      localStorage.removeItem('isAuthenticated');
+      setIsAuthenticated(false);
+    }, 1 * 60 * 60 * 1000); // 2 hours
+
+    return () => clearTimeout(authTimeout);
+  }, [isAuthenticated]);
 
   return (
     <Router>
       <Layout>
         <Routes>
           <Route path="/" element={<UserForm />} />
-          <Route path="/login" element={<DepartmentLogin setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/otherlogin" element={<DepartmentLogin setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/home" element={<IndexPage />} />
           <Route path="/docs-sharing" element={<FormWrapper />} />
           <Route path="/data" element={<DataPage />} />
           <Route path="/thankyou" element={<ThankYouPage />} />
 
+           <Route path="/api/userstatus" element={<UserStatus />} />
           <Route
             path="/api/formData"
             element={<ProtectedRoute element={FetchRecord} isAuthenticated={isAuthenticated} />}
           />
-          <Route
+          {/* <Route
             path="/api/userstatus"
             element={<ProtectedRoute element={UserStatus} isAuthenticated={isAuthenticated} />}
-          />
+          /> */}
           <Route
             path="/api/hrrecord"
             element={<ProtectedRoute element={HrFetchRecords} isAuthenticated={isAuthenticated} />}

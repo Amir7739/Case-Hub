@@ -177,7 +177,7 @@ const UserForm = () => {
     'MARKETING': ['Stationery issue', 'Maintenance issue', 'Other'],
     'SALES': ['Product training assistance', 'Need a superior to talk to a client in my leader\'s absence', 'Assistance in handling customer complaint', 'Tele-calling training', 'Wrong or error in case entry', 'Other'],
     'CREDIT': ['Delay in eligibility check of case', 'CIBIL check', 'Arrange PD call', 'Other'],
-    'ACCOUNTANDFINANCE': ['Purchase of new item', 'Stationery issue', 'Maintenance issue', 'Channel Partner Payment', 'Gift Card', 'Regular expenses raise request','Travel reimbursement', 'Food reimbursement','Regular Expenses','Contest reimbursement','Other'],
+    'ACCOUNTANDFINANCE': ['Cashback','Purchase of new item', 'Stationery issue', 'Maintenance issue', 'Channel Partner Payment', 'Gift Card', 'Regular expenses raise request','Travel reimbursement', 'Food reimbursement','Regular Expenses','Contest reimbursement','Other'],
     'DIRECTORS': ['Personal issue discussion', 'Meeting with directors', 'Performance appraisal dispute', 'Stationery issue', 'Maintenance issue', 'Other'],
     'GROWTH': ['Assistance in campaign design', 'Assistance in employee development', 'Assistance in mapping KPIs and KRAs', 'Support in managing team', 'Raise the issue with directors', 'Other'],
     // Add more departments and their categories here

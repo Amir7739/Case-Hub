@@ -16,9 +16,11 @@ const UserStatus = () => {
         empName: '',
         empId: '',
         dateCreated: '',
-        status: ''
+        status: '',
+        priority: '',
+        assignedTo: ''
     });
-    const [showFilters, setShowFilters] = useState(false);// State to hold authenticated empId
+    const [showFilters, setShowFilters] = useState(false);
 
     useEffect(() => {
         if (authEmpId) {
@@ -29,8 +31,9 @@ const UserStatus = () => {
     const fetchData = async () => {
         try {
             const response = await axios.get('http://13.235.164.94:5000/api/userstatus');
-            setFormDataList(response.data.filter(formData => formData.empId === authEmpId));
-            setFilteredDataList(response.data);
+            const userFilteredData = response.data.filter(formData => formData.empId === authEmpId); // Filter data based on authEmpId
+            setFormDataList(userFilteredData);
+            setFilteredDataList(userFilteredData);
         } catch (error) {
             console.error('Error fetching form data:', error);
         }
@@ -38,9 +41,7 @@ const UserStatus = () => {
 
     useEffect(() => {
         applyFilters();
-    }, [filters]);
-
-
+    }, [filters, formDataList]); // Apply filters whenever filter state or formDataList changes
 
     const handleFilterChange = (field, value) => {
         setFilters({
@@ -50,14 +51,13 @@ const UserStatus = () => {
     };
 
     const applyFilters = () => {
-        const filteredData = formDataList.filter(item => {
+        const filteredData = formDataList.filter(item => { // Apply filters to formDataList which is already filtered by authEmpId
             const dateCreatedMatch = filters.dateCreated ? new Date(item.dateCreated).toISOString().split('T')[0] === filters.dateCreated : true;
             const statusMatch = filters.status ? item.status === filters.status : true;
             const priorityMatch = filters.priority ? item.priority === filters.priority : true;
-            const matchDepartment = filters.assignedTo ? item.assignedTo === filters.assignedTo : true;
+            const assignedToMatch = filters.assignedTo ? item.assignedTo === filters.assignedTo : true;
 
-
-            return dateCreatedMatch && statusMatch && priorityMatch && matchDepartment;
+            return dateCreatedMatch && statusMatch && priorityMatch && assignedToMatch;
         });
         setFilteredDataList(filteredData);
     };
@@ -68,9 +68,10 @@ const UserStatus = () => {
             empId: '',
             dateCreated: '',
             status: '',
-             priority: '', 
-             assignedTo: '',
+            priority: '',
+            assignedTo: '',
         });
+        setFilteredDataList(formDataList); // Reset to original data list after clearing filters
     };
 
     const handleLogin = (empId) => {
@@ -122,6 +123,7 @@ const UserStatus = () => {
                 return '';
         }
     };
+
     const uniqueValues = (field) => {
         return [...new Set(formDataList.map(item => item[field]))];
     };
@@ -138,7 +140,6 @@ const UserStatus = () => {
                         <FaFilter onClick={() => setShowFilters(!showFilters)} className="filter-icon" />
                         {showFilters && (
                             <div className="filter-options">
-
                                 <input
                                     type="date"
                                     value={filters.dateCreated}
@@ -156,7 +157,6 @@ const UserStatus = () => {
                                         <option key={priority} value={priority}>{priority}</option>
                                     ))}
                                 </select>
-
                                 <select value={filters.assignedTo} onChange={(e) => handleFilterChange('assignedTo', e.target.value)}>
                                     <option value="">Choose Department</option>
                                     {uniqueValues('assignedTo').map(assignedTo => (
@@ -197,7 +197,6 @@ const UserStatus = () => {
                                     <td>{new Date(formData.dateCreated).toLocaleString('en-IN')}</td>
                                     <td>
                                         {formData.resolveDate ? (
-                                            // Display both date and time in Indian Standard Time
                                             new Date(formData.resolveDate).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', timeZoneName: 'short', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
                                         ) : (
                                             '-'
